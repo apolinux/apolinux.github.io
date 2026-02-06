@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Portfolio</title>
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      var theme = (stored === 'light' || stored === 'dark') ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
@@ -136,27 +143,67 @@
       40% { transform: translateY(-10px); }
       60% { transform: translateY(-5px); }
     }
+    /* Theme: light */
+    html[data-theme="light"] {
+      --bg-page: #f1f5f9;
+      --bg-nav: rgba(241, 245, 249, 0.9);
+      --nav-border: rgba(148, 163, 184, 0.25);
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.95));
+      --card-border: rgba(148, 163, 184, 0.35);
+      --footer-border: rgba(148, 163, 184, 0.25);
+      --blob-opacity: 0.25;
+    }
+    /* Theme: dark */
+    html[data-theme="dark"] {
+      --bg-page: #0a0a0f;
+      --bg-nav: rgba(10, 10, 15, 0.8);
+      --nav-border: rgba(167, 139, 250, 0.1);
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --card-bg: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9));
+      --card-border: rgba(167, 139, 250, 0.2);
+      --footer-border: rgba(167, 139, 250, 0.1);
+      --blob-opacity: 0.4;
+    }
+    .theme-bg-page { background-color: var(--bg-page); transition: background-color 0.3s ease; }
+    .theme-text-primary { color: var(--text-primary); transition: color 0.3s ease; }
+    .theme-text-secondary { color: var(--text-secondary); transition: color 0.3s ease; }
+    .theme-text-muted { color: var(--text-muted); transition: color 0.3s ease; }
+    .theme-nav-bg { background-color: var(--bg-nav); transition: background-color 0.3s ease; }
+    .theme-nav-border { border-color: var(--nav-border); transition: border-color 0.3s ease; }
+    .theme-card-bg { background: var(--card-bg); transition: background 0.3s ease; }
+    .theme-card-border { border-color: var(--card-border); transition: border-color 0.3s ease; }
+    .theme-footer-border { border-color: var(--footer-border); transition: border-color 0.3s ease; }
+    .theme-blob { opacity: var(--blob-opacity); transition: opacity 0.3s ease; }
+    html[data-theme="dark"] .theme-icon-light { display: block !important; }
+    html[data-theme="dark"] .theme-icon-dark { display: none !important; }
+    html[data-theme="light"] .theme-icon-dark { display: block !important; }
+    html[data-theme="light"] .theme-icon-light { display: none !important; }
   </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full overflow-auto" style="background-color: #0a0a0f;">
+ <body class="h-full overflow-auto theme-bg-page">
   <div class="min-h-full w-full relative"><!-- Background Blobs -->
-   <div class="blob w-96 h-96 -top-48 -left-48 fixed" style="background-color: #a78bfa;"></div>
-   <div class="blob w-80 h-80 top-1/2 -right-40 fixed" style="background-color: #06b6d4; animation-delay: -4s;"></div>
-   <div class="blob w-64 h-64 bottom-20 left-1/4 fixed" style="background-color: #34d399; animation-delay: -2s;"></div><!-- Navigation -->
-   <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b" style="background-color: rgba(10, 10, 15, 0.8); border-color: rgba(167, 139, 250, 0.1);">
+   <div class="blob theme-blob w-96 h-96 -top-48 -left-48 fixed" style="background-color: #a78bfa;"></div>
+   <div class="blob theme-blob w-80 h-80 top-1/2 -right-40 fixed" style="background-color: #06b6d4; animation-delay: -4s;"></div>
+   <div class="blob theme-blob w-64 h-64 bottom-20 left-1/4 fixed" style="background-color: #34d399; animation-delay: -2s;"></div><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b theme-nav-bg theme-nav-border">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
      <div class="mono text-lg font-medium" style="color: #a78bfa;">
       &lt;dev /&gt;
      </div>
-     <div class="hidden md:flex gap-8 items-center"><a href="#inicio" class="nav-link text-sm" style="color: #e2e8f0;" data-i18n="nav_home">Inicio</a> <a href="#proyectos" class="nav-link text-sm" style="color: #e2e8f0;" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="nav-link text-sm" style="color: #e2e8f0;" data-i18n="nav_about">Sobre Mí</a> <a href="#contacto" class="nav-link text-sm" style="color: #e2e8f0;" data-i18n="nav_contact">Contacto</a> <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-xs font-medium mono transition-all hover:scale-105" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
-     </div><button id="mobile-menu-btn" class="md:hidden p-2" style="color: #e2e8f0;">
+     <div class="hidden md:flex gap-6 items-center"><a href="#inicio" class="nav-link text-sm theme-text-primary" data-i18n="nav_home">Inicio</a> <a href="#proyectos" class="nav-link text-sm theme-text-primary" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="nav-link text-sm theme-text-primary" data-i18n="nav_about">Sobre Mí</a> <a href="#contacto" class="nav-link text-sm theme-text-primary" data-i18n="nav_contact">Contacto</a> <button id="theme-toggle" type="button" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:scale-105 theme-nav-border border theme-text-primary" title="Cambiar tema" aria-label="Cambiar tema"><svg class="theme-icon-dark w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="theme-icon-light w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button> <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-xs font-medium mono transition-all hover:scale-105" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
+     </div><button id="mobile-menu-btn" class="md:hidden p-2 theme-text-primary">
       <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" />
       </svg></button>
     </div><!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-     <div class="flex flex-col gap-4"><a href="#inicio" class="text-sm" style="color: #e2e8f0;" data-i18n="nav_home">Inicio</a> <a href="#proyectos" class="text-sm" style="color: #e2e8f0;" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="text-sm" style="color: #e2e8f0;" data-i18n="nav_about">Sobre Mí</a> <a href="#contacto" class="text-sm" style="color: #e2e8f0;" data-i18n="nav_contact">Contacto</a> <button id="lang-toggle-mobile" class="px-3 py-2 rounded-lg text-xs font-medium mono transition-all text-left" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
+     <div class="flex flex-col gap-4"><a href="#inicio" class="text-sm theme-text-primary" data-i18n="nav_home">Inicio</a> <a href="#proyectos" class="text-sm theme-text-primary" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="text-sm theme-text-primary" data-i18n="nav_about">Sobre Mí</a> <a href="#contacto" class="text-sm theme-text-primary" data-i18n="nav_contact">Contacto</a> <button id="theme-toggle-mobile" type="button" class="w-9 h-9 rounded-lg flex items-center justify-center border theme-nav-border theme-text-primary" aria-label="Cambiar tema"><svg class="theme-icon-dark w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="theme-icon-light w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button> <button id="lang-toggle-mobile" class="px-3 py-2 rounded-lg text-xs font-medium mono transition-all text-left" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
      </div>
     </div>
    </nav><!-- Hero Section -->
@@ -166,11 +213,11 @@
       ¡Hola! Mi nombre es
      </div>
      <h1 id="hero-name" class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 gradient-text">Carlos Arce</h1>
-     <h2 id="hero-title" class="text-xl md:text-2xl lg:text-3xl font-light mb-6" style="color: #94a3b8;">Full Stack Developer</h2>
-     <p id="hero-description" class="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style="color: #64748b;" data-i18n="hero_description_text">Construyo experiencias digitales excepcionales que combinan diseño elegante con código limpio y eficiente.</p>
+     <h2 id="hero-title" class="text-xl md:text-2xl lg:text-3xl font-light mb-6 theme-text-secondary">Full Stack Developer</h2>
+     <p id="hero-description" class="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed theme-text-muted" data-i18n="hero_description_text">Construyo experiencias digitales excepcionales que combinan diseño elegante con código limpio y eficiente.</p>
      <div class="flex flex-col sm:flex-row gap-4 justify-center"><a href="#proyectos" class="px-8 py-3 rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #0a0a0f;" data-i18n="btn_view_projects"> Ver Proyectos </a> <a href="#contacto" class="px-8 py-3 rounded-full font-medium border transition-all hover:scale-105" style="border-color: #a78bfa; color: #a78bfa;" data-i18n="btn_contact"> Contactar </a>
      </div>
-     <div class="mt-16 scroll-indicator" style="color: #64748b;">
+     <div class="mt-16 scroll-indicator theme-text-muted">
       <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
       </svg>
      </div>
@@ -179,16 +226,16 @@
    <section id="proyectos" class="py-20 px-6 relative">
     <div class="max-w-6xl mx-auto">
      <div class="text-center mb-16 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="projects_subtitle">// proyectos destacados</span>
-      <h2 class="text-3xl md:text-4xl font-bold mt-2" style="color: #e2e8f0;" data-i18n="projects_title">Mis Trabajos</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 theme-text-primary" data-i18n="projects_title">Mis Trabajos</h2>
      </div>
      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Project 1 -->
-      <div class="project-card card-glow rounded-2xl p-6 border" style="background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9)); border-color: rgba(167, 139, 250, 0.2);">
+      <div class="project-card card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
        <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
         <svg class="w-16 h-16 floating" fill="none" stroke="#a78bfa" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
        </div>
-       <h3 class="text-xl font-semibold mb-2" style="color: #e2e8f0;" data-i18n="project1_title">OMS Salón de Belleza</h3>
-       <p class="text-sm mb-4 leading-relaxed" style="color: #94a3b8;" data-i18n="project1_desc">Sistema completo de gestión para salones de belleza con administración de citas, clientes, servicios e inventario.</p>
+       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="project1_title">OMS Salón de Belleza</h3>
+       <p class="text-sm mb-4 leading-relaxed theme-text-secondary" data-i18n="project1_desc">Sistema completo de gestión para salones de belleza con administración de citas, clientes, servicios e inventario.</p>
        <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">PHP</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">Laravel</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">MySQL</span>
        </div>
        <div class="flex gap-3"><a href="https://armymanager.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
@@ -197,13 +244,13 @@
          </svg><span data-i18n="btn_view_demo">Ver Demo</span> </a>
        </div>
       </div><!-- Project 2 -->
-      <div class="project-card card-glow rounded-2xl p-6 border" style="background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9)); border-color: rgba(6, 182, 212, 0.2);">
+      <div class="project-card card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
        <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #134e4a, #0f766e);">
         <svg class="w-16 h-16 floating" style="animation-delay: -1s;" fill="none" stroke="#34d399" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
         </svg>
        </div>
-       <h3 class="text-xl font-semibold mb-2" style="color: #e2e8f0;" data-i18n="project2_title">OMS Cime</h3>
-       <p class="text-sm mb-4 leading-relaxed" style="color: #94a3b8;" data-i18n="project2_desc">Administrador de citas médicas moderno con interfaz intuitiva para la gestión de pacientes, horarios y consultas.</p>
+       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="project2_title">OMS Cime</h3>
+       <p class="text-sm mb-4 leading-relaxed theme-text-secondary" data-i18n="project2_desc">Administrador de citas médicas moderno con interfaz intuitiva para la gestión de pacientes, horarios y consultas.</p>
        <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">Node.js</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">MongoDB</span>
        </div>
        <div class="flex gap-3"><a href="https://cime.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
@@ -212,13 +259,13 @@
          </svg><span data-i18n="btn_view_demo">Ver Demo</span> </a>
        </div>
       </div><!-- Project 3 -->
-      <div class="project-card card-glow rounded-2xl p-6 border" style="background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9)); border-color: rgba(52, 211, 153, 0.2);">
+      <div class="project-card card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
        <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #7c2d12, #9a3412);">
         <svg class="w-16 h-16 floating" style="animation-delay: -2s;" fill="none" stroke="#fb923c" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
         </svg>
        </div>
-       <h3 class="text-xl font-semibold mb-2" style="color: #e2e8f0;" data-i18n="project3_title">Alquiler de Sillas</h3>
-       <p class="text-sm mb-4 leading-relaxed" style="color: #94a3b8;" data-i18n="project3_desc">Plataforma de gestión para alquiler de sillas con control de disponibilidad, reservas, pagos y reportes detallados.</p>
+       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="project3_title">Alquiler de Sillas</h3>
+       <p class="text-sm mb-4 leading-relaxed theme-text-secondary" data-i18n="project3_desc">Plataforma de gestión para alquiler de sillas con control de disponibilidad, reservas, pagos y reportes detallados.</p>
        <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">Express</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">PostgreSQL</span>
        </div>
        <div class="flex gap-3"><a href="https://alquilersillasdemo.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
@@ -234,14 +281,14 @@
     <div class="max-w-6xl mx-auto">
      <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div class="slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="about_subtitle">// sobre mí</span>
-       <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6" style="color: #e2e8f0;" data-i18n="about_title">Conoce Mi Historia</h2>
-       <p id="about-text" class="text-base leading-relaxed mb-6" style="color: #94a3b8;" data-i18n="about_text1">Con más de 20 años de experiencia en desarrollo de software, me especializo en crear aplicaciones web modernas y escalables. Mi pasión por la tecnología me impulsa a estar siempre aprendiendo y explorando nuevas herramientas y metodologías.</p>
-       <p class="text-base leading-relaxed mb-8" style="color: #94a3b8;" data-i18n="about_text2">Creo firmemente en el código limpio, las buenas prácticas y la colaboración efectiva. Cada proyecto es una oportunidad para superar límites y crear algo extraordinario.</p>
+       <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 theme-text-primary" data-i18n="about_title">Conoce Mi Historia</h2>
+       <p id="about-text" class="text-base leading-relaxed mb-6 theme-text-secondary" data-i18n="about_text1">Con más de 20 años de experiencia en desarrollo de software, me especializo en crear aplicaciones web modernas y escalables. Mi pasión por la tecnología me impulsa a estar siempre aprendiendo y explorando nuevas herramientas y metodologías.</p>
+       <p class="text-base leading-relaxed mb-8 theme-text-secondary" data-i18n="about_text2">Creo firmemente en el código limpio, las buenas prácticas y la colaboración efectiva. Cada proyecto es una oportunidad para superar límites y crear algo extraordinario.</p>
        <div class="flex flex-wrap gap-3"><span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">JavaScript</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">TypeScript</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">PHP</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">Python</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">React</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">Laravel</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">Node.js</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">MySQL</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">PostgreSQL</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">Nginx</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">Linux</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">XML</span>
        </div>
       </div>
       <div class="relative">
-       <div class="aspect-square max-w-md mx-auto rounded-2xl p-8 border relative overflow-hidden" style="background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9)); border-color: rgba(167, 139, 250, 0.2);">
+       <div class="aspect-square max-w-md mx-auto rounded-2xl p-8 border relative overflow-hidden theme-card-bg theme-card-border">
         <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at 30% 70%, #a78bfa 0%, transparent 50%), radial-gradient(circle at 70% 30%, #06b6d4 0%, transparent 50%);"></div>
         <div class="relative h-full flex flex-col justify-center items-center text-center">
          <div class="w-32 h-32 rounded-full mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #a78bfa, #06b6d4);">
@@ -251,7 +298,7 @@
          <div class="mono text-4xl font-bold gradient-text mb-2">
           20+
          </div>
-         <div class="text-sm" style="color: #94a3b8;" data-i18n="about_years">
+         <div class="text-sm theme-text-secondary" data-i18n="about_years">
           Años de experiencia
          </div>
          <div class="grid grid-cols-2 gap-6 mt-8 w-full">
@@ -259,7 +306,7 @@
            <div class="mono text-2xl font-bold" style="color: #06b6d4;">
             50+
            </div>
-           <div class="text-xs" style="color: #64748b;" data-i18n="about_projects">
+           <div class="text-xs theme-text-muted" data-i18n="about_projects">
             Proyectos
            </div>
           </div>
@@ -267,7 +314,7 @@
            <div class="mono text-2xl font-bold" style="color: #34d399;">
             30+
            </div>
-           <div class="text-xs" style="color: #64748b;" data-i18n="about_clients">
+           <div class="text-xs theme-text-muted" data-i18n="about_clients">
             Clientes
            </div>
           </div>
@@ -280,8 +327,8 @@
    </section><!-- Contact Section -->
    <section id="contacto" class="py-20 px-6 relative">
     <div class="max-w-4xl mx-auto text-center"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="contact_subtitle">// contacto</span>
-     <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: #e2e8f0;" data-i18n="contact_title">¿Trabajamos Juntos?</h2>
-     <p class="text-base mb-4 max-w-2xl mx-auto" style="color: #94a3b8;" data-i18n="contact_desc">Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o oportunidades para ser parte de algo increíble.</p>
+     <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 theme-text-primary" data-i18n="contact_title">¿Trabajamos Juntos?</h2>
+     <p class="text-base mb-4 max-w-2xl mx-auto theme-text-secondary" data-i18n="contact_desc">Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o oportunidades para ser parte de algo increíble.</p>
      <p class="flex justify-center mb-10">
       <a href="https://t.me/ZR4S0LR4K" target="_blank" rel="noopener noreferrer" class="inline-block" title="Contactar por Telegram">
        <img src="assets/img/telegram.png" alt="Contactar por Telegram" class="w-24 h-auto rounded-lg transition-transform hover:scale-105" />
@@ -325,12 +372,12 @@
      </div>
     </div>
    </section><!-- Footer -->
-   <footer class="py-8 px-6 border-t" style="border-color: rgba(167, 139, 250, 0.1);">
+   <footer class="py-8 px-6 border-t theme-footer-border">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-     <div class="mono text-sm" style="color: #64748b;">
+     <div class="mono text-sm theme-text-muted">
       © 2026 <span id="footer-name">Carlos Arce</span>. <span data-i18n="footer_rights">Todos los derechos reservados.</span>
      </div>
-     <div class="flex items-center gap-2 text-sm" style="color: #64748b;"><span data-i18n="footer_made">Hecho con</span>
+     <div class="flex items-center gap-2 text-sm theme-text-muted"><span data-i18n="footer_made">Hecho con</span>
       <svg class="w-4 h-4 inline" fill="#a78bfa" viewbox="0 0 24 24">
        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
       </svg><span data-i18n="footer_coffee">y mucho café</span>
@@ -456,6 +503,22 @@
     
     document.getElementById('lang-toggle-mobile').addEventListener('click', () => {
       setLanguage(currentLang === 'es' ? 'en' : 'es');
+    });
+    
+    // Theme: toggle and system preference
+    function getTheme() { return document.documentElement.dataset.theme || 'dark'; }
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('theme', theme);
+    }
+    function toggleTheme() { setTheme(getTheme() === 'dark' ? 'light' : 'dark'); }
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('click', () => {
+      toggleTheme();
+      document.getElementById('mobile-menu').classList.add('hidden');
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
     });
     
     // Apply language on page load
