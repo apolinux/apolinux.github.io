@@ -69,6 +69,7 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.1), transparent);
       transition: left 0.5s ease;
+      pointer-events: none;
     }
     
     .card-glow:hover::before {
@@ -124,6 +125,32 @@
 
     .project-showcase {
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      overflow: visible;
+    }
+
+    /* card-glow usa overflow:hidden; en fichas de proyecto recorta texto y galería */
+    .project-showcase.card-glow {
+      overflow: visible;
+    }
+
+    .project-showcase-grid {
+      min-width: 0;
+    }
+
+    .project-showcase-grid > * {
+      min-width: 0;
+      overflow-wrap: break-word;
+    }
+
+    #projects-list {
+      min-width: 0;
+      overflow: visible;
+    }
+
+    .project-gallery-wrap {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
 
     .project-sector {
@@ -151,12 +178,19 @@
 
     .project-gallery-scroll {
       display: flex;
+      flex-wrap: nowrap;
       gap: 0.75rem;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
       overflow-x: auto;
+      overflow-y: hidden;
       scroll-snap-type: x mandatory;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.75rem;
       scrollbar-width: thin;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
     }
 
     .project-gallery-scroll::-webkit-scrollbar {
@@ -171,23 +205,50 @@
     .project-gallery-scroll img {
       height: 200px;
       width: auto;
-      max-width: min(88vw, 400px);
+      min-width: 200px;
+      max-width: none;
       border-radius: 0.75rem;
       object-fit: cover;
       object-position: top center;
-      flex-shrink: 0;
+      flex: 0 0 auto;
       scroll-snap-align: start;
       border: 1px solid var(--card-border);
       transition: transform 0.25s ease;
+      pointer-events: auto;
     }
 
-    .project-gallery-scroll img:hover {
-      transform: scale(1.02);
+    @media (hover: hover) {
+      .project-gallery-scroll img:hover {
+        transform: scale(1.02);
+      }
+    }
+
+    @media (max-width: 767px) {
+      #proyectos {
+        overflow-x: hidden;
+      }
+
+      #proyectos .project-showcase {
+        overflow: visible;
+      }
+
+      .project-gallery-scroll {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      .project-gallery-scroll img {
+        height: 240px;
+        min-width: min(78vw, 280px);
+      }
     }
 
     @media (min-width: 768px) {
       .project-gallery-scroll img {
         height: 260px;
+        min-width: 280px;
         max-width: 440px;
       }
     }
@@ -452,7 +513,7 @@
      </div>
      <div class="space-y-10" id="projects-list"><!-- Project 1: OMS Salón / armymngr -->
       <article id="proyecto-armymngr" data-categories="belleza gestion" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
-       <div class="grid lg:grid-cols-2 gap-8 items-start">
+       <div class="project-showcase-grid grid lg:grid-cols-2 gap-8 items-start">
         <div class="lg:order-1">
          <div class="flex flex-wrap items-center gap-2 mb-3">
           <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(167, 139, 250, 0.12);" data-i18n="project1_sector">Belleza · Gestión</span>
@@ -477,6 +538,7 @@
         </div>
         <div class="lg:order-2">
          <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-wrap">
          <div class="project-gallery-scroll" role="region" aria-label="Capturas OMS Salón de Belleza">
           <img src="assets/armymngr/armymngr1.png" alt="OMS Salón de Belleza — captura 1" loading="lazy" width="400" height="260">
           <img src="assets/armymngr/armymngr2.png" alt="OMS Salón de Belleza — captura 2" loading="lazy" width="400" height="260">
@@ -490,7 +552,7 @@
        </div>
       </article><!-- Project 2: OMS Cime -->
       <article id="proyecto-cime" data-categories="salud" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
-       <div class="grid lg:grid-cols-2 gap-8 items-start">
+       <div class="project-showcase-grid grid lg:grid-cols-2 gap-8 items-start">
         <div class="lg:order-2">
          <div class="flex flex-wrap items-center gap-2 mb-3">
           <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(6, 182, 212, 0.12);" data-i18n="project2_sector">Salud · Citas médicas</span>
@@ -515,6 +577,7 @@
         </div>
         <div class="lg:order-1">
          <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-wrap">
          <div class="project-gallery-scroll" role="region" aria-label="Capturas OMS Cime">
           <img src="assets/cime/cime1.png" alt="OMS Cime — captura 1" loading="lazy" width="400" height="260">
           <img src="assets/cime/cime2.png" alt="OMS Cime — captura 2" loading="lazy" width="400" height="260">
@@ -526,7 +589,7 @@
        </div>
       </article><!-- Project 3: Alquiler de Sillas -->
       <article id="proyecto-alquilersillas" data-categories="gestion" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
-       <div class="grid lg:grid-cols-2 gap-8 items-start">
+       <div class="project-showcase-grid grid lg:grid-cols-2 gap-8 items-start">
         <div class="lg:order-1">
          <div class="flex flex-wrap items-center gap-2 mb-3">
           <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(251, 146, 60, 0.12);" data-i18n="project3_sector">Gestión · Reservas</span>
@@ -551,6 +614,7 @@
         </div>
         <div class="lg:order-2">
          <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-wrap">
          <div class="project-gallery-scroll" role="region" aria-label="Capturas Alquiler de Sillas">
           <img src="assets/alquilersillas/sillas1.png" alt="Alquiler de Sillas — captura 1" loading="lazy" width="400" height="260">
           <img src="assets/alquilersillas/sillas2.png" alt="Alquiler de Sillas — captura 2" loading="lazy" width="400" height="260">
@@ -570,7 +634,7 @@
        </div>
       </article><!-- Project 4: Tienda Online -->
       <article id="proyecto-tiendaonline" data-categories="retail" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
-       <div class="grid lg:grid-cols-2 gap-8 items-start">
+       <div class="project-showcase-grid grid lg:grid-cols-2 gap-8 items-start">
         <div class="lg:order-2">
          <div class="flex flex-wrap items-center gap-2 mb-3">
           <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(244, 114, 182, 0.12);" data-i18n="project4_sector">Ecommerce · Retail</span>
@@ -595,6 +659,7 @@
         </div>
         <div class="lg:order-1">
          <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-wrap">
          <div class="project-gallery-scroll" role="region" aria-label="Capturas Tienda Online">
           <img src="assets/tiendaonline/cami1.png" alt="Tienda Online — captura 1" loading="lazy" width="400" height="260">
           <img src="assets/tiendaonline/cami2.png" alt="Tienda Online — captura 2" loading="lazy" width="400" height="260">
@@ -606,7 +671,7 @@
        </div>
       </article><!-- Project 5: Mensajes Positivos -->
       <article id="proyecto-mensajes" data-categories="mobile" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
-       <div class="grid lg:grid-cols-2 gap-8 items-start">
+       <div class="project-showcase-grid grid lg:grid-cols-2 gap-8 items-start">
         <div class="lg:order-1">
          <div class="flex flex-wrap items-center gap-2 mb-3">
           <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(251, 191, 36, 0.12);" data-i18n="project5_sector">Espiritualidad · Apps móvil</span>
@@ -631,6 +696,7 @@
         </div>
         <div class="lg:order-2">
          <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-wrap">
          <div class="project-gallery-scroll" role="region" aria-label="Capturas Mensajes Positivos">
           <img src="assets/img/mensajes/ss1.png" alt="Mensajes Positivos — captura 1" loading="lazy" width="400" height="260">
           <img src="assets/img/mensajes/ss2.png" alt="Mensajes Positivos — captura 2" loading="lazy" width="400" height="260">
