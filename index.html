@@ -176,6 +176,8 @@
       --card-border: rgba(148, 163, 184, 0.35);
       --footer-border: rgba(148, 163, 184, 0.25);
       --blob-opacity: 0.25;
+      --input-bg: rgba(255, 255, 255, 0.9);
+      --input-border: rgba(148, 163, 184, 0.45);
     }
     /* Theme: dark */
     html[data-theme="dark"] {
@@ -189,6 +191,8 @@
       --card-border: rgba(167, 139, 250, 0.2);
       --footer-border: rgba(167, 139, 250, 0.1);
       --blob-opacity: 0.4;
+      --input-bg: rgba(10, 10, 15, 0.5);
+      --input-border: rgba(167, 139, 250, 0.2);
     }
     .theme-bg-page { background-color: var(--bg-page); transition: background-color 0.3s ease; }
     .theme-text-primary { color: var(--text-primary); transition: color 0.3s ease; }
@@ -200,6 +204,16 @@
     .theme-card-border { border-color: var(--card-border); transition: border-color 0.3s ease; }
     .theme-footer-border { border-color: var(--footer-border); transition: border-color 0.3s ease; }
     .theme-blob { opacity: var(--blob-opacity); transition: opacity 0.3s ease; }
+    .theme-form-input {
+      background-color: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+    .theme-form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.35);
+    }
     html[data-theme="dark"] .theme-icon-light { display: block !important; }
     html[data-theme="dark"] .theme-icon-dark { display: none !important; }
     html[data-theme="light"] .theme-icon-dark { display: block !important; }
@@ -395,33 +409,36 @@
     <div class="max-w-4xl mx-auto text-center"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="contact_subtitle">// contacto</span>
      <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 theme-text-primary" data-i18n="contact_title">¿Trabajamos Juntos?</h2>
      <p class="text-base mb-4 max-w-2xl mx-auto theme-text-secondary" data-i18n="contact_desc">Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o oportunidades para ser parte de algo increíble.</p>
-     <p class="flex justify-center mb-10">
+     <p class="text-sm mb-6 theme-text-muted" data-i18n="contact_telegram_hint">También puedes escribirme por Telegram o usar el formulario.</p>
+     <p class="flex justify-center mb-8">
       <a href="https://t.me/ZR4S0LR4K" target="_blank" rel="noopener noreferrer" class="inline-block" title="Contactar por Telegram">
        <img src="assets/img/telegram.png" alt="Contactar por Telegram" class="w-24 h-auto rounded-lg transition-transform hover:scale-105" />
       </a>
      </p>
-     <!-- 
-     <div class="rounded-2xl p-8 md:p-12 border mb-10" style="background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9)); border-color: rgba(167, 139, 250, 0.2);">
-      <form id="contact-form" class="space-y-6">
+     <div id="contact-form-wrap" class="rounded-2xl p-8 md:p-12 border mb-10 text-left theme-card-bg theme-card-border">
+      <div id="form-error" class="hidden mb-6 p-4 rounded-xl text-sm text-left" style="background-color: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.25);" role="alert"></div>
+      <form id="contact-form" action="https://formspree.io/f/maqkopbv" method="POST" class="space-y-6">
+       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
        <div class="grid md:grid-cols-2 gap-6">
-        <div><label for="name" class="block text-sm text-left mb-2" style="color: #94a3b8;" data-i18n="form_name">Nombre</label> <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all" style="background-color: rgba(10, 10, 15, 0.5); border-color: rgba(167, 139, 250, 0.2); color: #e2e8f0;" data-i18n-placeholder="form_name_placeholder" placeholder="Tu nombre">
+        <div><label for="name" class="block text-sm mb-2 theme-text-secondary" data-i18n="form_name">Nombre</label> <input type="text" id="name" name="name" required class="theme-form-input w-full px-4 py-3 rounded-xl transition-all" data-i18n-placeholder="form_name_placeholder" placeholder="Tu nombre">
         </div>
-        <div><label for="email" class="block text-sm text-left mb-2" style="color: #94a3b8;">Email</label> <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all" style="background-color: rgba(10, 10, 15, 0.5); border-color: rgba(167, 139, 250, 0.2); color: #e2e8f0;" placeholder="tu@email.com">
+        <div><label for="email" class="block text-sm mb-2 theme-text-secondary" data-i18n="form_email">Email</label> <input type="email" id="email" name="email" required class="theme-form-input w-full px-4 py-3 rounded-xl transition-all" data-i18n-placeholder="form_email_placeholder" placeholder="tu@email.com">
         </div>
        </div>
-       <div><label for="subject" class="block text-sm text-left mb-2" style="color: #94a3b8;" data-i18n="form_subject">Asunto</label> <input type="text" id="subject" name="subject" required class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all" style="background-color: rgba(10, 10, 15, 0.5); border-color: rgba(167, 139, 250, 0.2); color: #e2e8f0;" data-i18n-placeholder="form_subject_placeholder" placeholder="¿En qué puedo ayudarte?">
+       <div><label for="subject" class="block text-sm mb-2 theme-text-secondary" data-i18n="form_subject">Asunto</label> <input type="text" id="subject" name="subject" required class="theme-form-input w-full px-4 py-3 rounded-xl transition-all" data-i18n-placeholder="form_subject_placeholder" placeholder="¿En qué puedo ayudarte?">
        </div>
-       <div><label for="message" class="block text-sm text-left mb-2" style="color: #94a3b8;" data-i18n="form_message">Mensaje</label> <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all resize-none" style="background-color: rgba(10, 10, 15, 0.5); border-color: rgba(167, 139, 250, 0.2); color: #e2e8f0;" data-i18n-placeholder="form_message_placeholder" placeholder="Cuéntame sobre tu proyecto..."></textarea>
-       </div><button type="submit" class="w-full md:w-auto px-10 py-4 rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #0a0a0f;" data-i18n="btn_send_message"> Enviar Mensaje </button>
+       <div><label for="message" class="block text-sm mb-2 theme-text-secondary" data-i18n="form_message">Mensaje</label> <textarea id="message" name="message" rows="5" required class="theme-form-input w-full px-4 py-3 rounded-xl transition-all resize-none" data-i18n-placeholder="form_message_placeholder" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+       </div>
+       <button type="submit" id="form-submit-btn" class="w-full md:w-auto px-10 py-4 rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg disabled:opacity-60 disabled:pointer-events-none" style="background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #0a0a0f;" data-i18n="btn_send_message">Enviar Mensaje</button>
       </form>
-      <div id="form-success" class="hidden py-8">
-       <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="#34d399" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <div id="form-success" class="hidden py-8 text-center">
+       <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="#34d399" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
        </svg>
-       <h3 class="text-xl font-semibold mb-2" style="color: #e2e8f0;" data-i18n="form_success_title">¡Mensaje Enviado!</h3>
-       <p class="text-sm" style="color: #94a3b8;" data-i18n="form_success_message">Gracias por contactarme. Te responderé lo antes posible.</p>
+       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="form_success_title">¡Mensaje Enviado!</h3>
+       <p class="text-sm theme-text-secondary mb-6" data-i18n="form_success_message">Gracias por contactarme. Te responderé lo antes posible.</p>
+       <button type="button" id="form-reset-btn" class="text-sm transition-opacity hover:opacity-80" style="color: #06b6d4;" data-i18n="form_send_another">Enviar otro mensaje</button>
       </div>
      </div>
-     -->
      <div class="flex justify-center gap-6"><a href="https://github.com/apolinux/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full flex items-center justify-center border transition-all hover:scale-110" style="border-color: rgba(167, 139, 250, 0.3); color: #a78bfa;">
        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -484,8 +501,11 @@
         contact_subtitle: '// contacto',
         contact_title: '¿Trabajamos Juntos?',
         contact_desc: 'Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o oportunidades para ser parte de algo increíble.',
+        contact_telegram_hint: 'También puedes escribirme por Telegram o usar el formulario.',
         form_name: 'Nombre',
         form_name_placeholder: 'Tu nombre',
+        form_email: 'Email',
+        form_email_placeholder: 'tu@email.com',
         form_subject: 'Asunto',
         form_subject_placeholder: '¿En qué puedo ayudarte?',
         form_message: 'Mensaje',
@@ -493,6 +513,9 @@
         btn_send_message: 'Enviar Mensaje',
         form_success_title: '¡Mensaje Enviado!',
         form_success_message: 'Gracias por contactarme. Te responderé lo antes posible.',
+        form_send_another: 'Enviar otro mensaje',
+        form_sending: 'Enviando…',
+        form_error_generic: 'No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme por Telegram.',
         footer_rights: 'Todos los derechos reservados.',
         footer_made: 'Hecho con',
         footer_coffee: 'y mucho ☕'
@@ -527,8 +550,11 @@
         contact_subtitle: '// contact',
         contact_title: 'Let\'s Work Together?',
         contact_desc: 'I\'m always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.',
+        contact_telegram_hint: 'You can also message me on Telegram or use the form below.',
         form_name: 'Name',
         form_name_placeholder: 'Your name',
+        form_email: 'Email',
+        form_email_placeholder: 'you@email.com',
         form_subject: 'Subject',
         form_subject_placeholder: 'How can I help you?',
         form_message: 'Message',
@@ -536,6 +562,9 @@
         btn_send_message: 'Send Message',
         form_success_title: 'Message Sent!',
         form_success_message: 'Thank you for contacting me. I will respond as soon as possible.',
+        form_send_another: 'Send another message',
+        form_sending: 'Sending…',
+        form_error_generic: 'Could not send your message. Please try again or contact me on Telegram.',
         footer_rights: 'All rights reserved.',
         footer_made: 'Made with',
         footer_coffee: 'and lots of ☕'
@@ -697,21 +726,79 @@
       });
     });
     
-    // Form submission handling
+    // Formspree (Vanilla JS AJAX) — https://formspree.io/f/maqkopbv
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/maqkopbv';
     const contactForm = document.getElementById('contact-form');
     const formSuccess = document.getElementById('form-success');
-    
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      contactForm.classList.add('hidden');
-      formSuccess.classList.remove('hidden');
-      
-      setTimeout(() => {
+    const formError = document.getElementById('form-error');
+    const formSubmitBtn = document.getElementById('form-submit-btn');
+    const formResetBtn = document.getElementById('form-reset-btn');
+
+    function showFormError(message) {
+      if (!formError) return;
+      formError.textContent = message || translations[currentLang].form_error_generic;
+      formError.classList.remove('hidden');
+    }
+
+    function hideFormError() {
+      if (formError) formError.classList.add('hidden');
+    }
+
+    function setFormSubmitting(isSubmitting) {
+      if (!formSubmitBtn) return;
+      formSubmitBtn.disabled = isSubmitting;
+      formSubmitBtn.textContent = isSubmitting
+        ? translations[currentLang].form_sending
+        : translations[currentLang].btn_send_message;
+    }
+
+    function showFormSuccess() {
+      if (contactForm) contactForm.classList.add('hidden');
+      if (formSuccess) formSuccess.classList.remove('hidden');
+      hideFormError();
+    }
+
+    function resetContactForm() {
+      if (contactForm) {
         contactForm.reset();
         contactForm.classList.remove('hidden');
-        formSuccess.classList.add('hidden');
-      }, 5000);
-    });
+      }
+      if (formSuccess) formSuccess.classList.add('hidden');
+      hideFormError();
+      setFormSubmitting(false);
+    }
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideFormError();
+        setFormSubmitting(true);
+
+        try {
+          const response = await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { Accept: 'application/json' }
+          });
+
+          if (response.ok) {
+            showFormSuccess();
+          } else {
+            const data = await response.json().catch(() => ({}));
+            const detail = data.error || (Array.isArray(data.errors) && data.errors[0]?.message);
+            showFormError(detail);
+            setFormSubmitting(false);
+          }
+        } catch {
+          showFormError();
+          setFormSubmitting(false);
+        }
+      });
+    }
+
+    if (formResetBtn) {
+      formResetBtn.addEventListener('click', resetContactForm);
+    }
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
