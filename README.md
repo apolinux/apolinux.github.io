@@ -18,7 +18,7 @@ El portfolio ya cuenta con:
 - Idiomas ES / EN
 - Tema claro / oscuro
 - Hero orientado a negocio y sección **Servicios** (`#servicios`)
-- Cuatro demos con fichas, galerías, filtros por sector y resultados de negocio
+- Cinco trabajos/demos con fichas, galerías, filtros por sector (incl. Apps móvil) y resultados de negocio
 - **Testimonios**, mini casos, **Proceso** (`#proceso`), **FAQ** (`#faq`)
 - Foto profesional en Sobre mí y CTA flotante en móvil
 - Formulario de contacto con **Formspree** (envío AJAX, sin recargar la página)
@@ -281,8 +281,9 @@ flowchart LR
 | OMS Cime | https://cime.apolinux.work.gd | Salud / citas | `cime/` (5 imágenes) |
 | Alquiler de Sillas | https://alquilersillasdemo.apolinux.work.gd | Gestión / reservas | `alquilersillas/` (13 imágenes) |
 | Tienda Online (TeeHaus) | https://tiendaonlinedemo.apolinux.work.gd/ | Ecommerce / retail | `tiendaonline/` (5 imágenes) |
+| Mensajes Positivos | https://play.google.com/store/apps/details?id=com.apolinux.mensajespositivo | Espiritualidad / apps móvil | `assets/img/mensajes/` (5 imágenes) |
 
-Anclas en el sitio: `#proyecto-armymngr`, `#proyecto-cime`, `#proyecto-alquilersillas`, `#proyecto-tiendaonline`.
+Anclas en el sitio: `#proyecto-armymngr`, `#proyecto-cime`, `#proyecto-alquilersillas`, `#proyecto-tiendaonline`, `#proyecto-mensajes`.
 
 ---
 
