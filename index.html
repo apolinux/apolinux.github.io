@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carlos Arce - Full Stack Developer | Portfolio</title>
-  <meta name="description" content="Portfolio de Carlos Arce, Full Stack Developer con más de 20 años de experiencia. Desarrollo web con React, Node.js, Laravel, PHP y más. Proyectos, contacto y colaboración.">
+  <meta name="description" content="Carlos Arce — desarrollo web y sistemas a medida: tiendas online, citas médicas, OMS y gestión operativa. Más de 20 años de experiencia. Demos en vivo y contacto.">
   <meta name="keywords" content="desarrollador full stack, Carlos Arce, portfolio, desarrollo web, React, Node.js, Laravel, PHP, JavaScript, TypeScript">
   <meta name="author" content="Carlos Arce">
   <meta name="robots" content="index, follow">
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://apolinux.github.io/">
   <meta property="og:title" content="Carlos Arce - Full Stack Developer">
-  <meta property="og:description" content="Portfolio de Carlos Arce. Full Stack Developer con más de 20 años de experiencia en desarrollo web. Proyectos, sobre mí y contacto.">
+  <meta property="og:description" content="Desarrollo web y sistemas a medida: tiendas online, citas médicas y OMS. Carlos Arce — 20+ años de experiencia. Demos en vivo.">
   <meta property="og:image" content="https://apolinux.github.io/assets/img/og-image.png">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="Carlos Arce - Portfolio">
@@ -121,6 +121,76 @@
     .project-card:hover {
       transform: translateY(-8px);
     }
+
+    .project-showcase {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-sector {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .project-features li {
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .project-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a78bfa, #06b6d4);
+    }
+
+    .project-gallery-scroll {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .project-gallery-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .project-gallery-scroll::-webkit-scrollbar-thumb {
+      background: rgba(167, 139, 250, 0.35);
+      border-radius: 3px;
+    }
+
+    .project-gallery-scroll img {
+      height: 200px;
+      width: auto;
+      max-width: min(88vw, 400px);
+      border-radius: 0.75rem;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      border: 1px solid var(--card-border);
+      transition: transform 0.25s ease;
+    }
+
+    .project-gallery-scroll img:hover {
+      transform: scale(1.02);
+    }
+
+    @media (min-width: 768px) {
+      .project-gallery-scroll img {
+        height: 260px;
+        max-width: 440px;
+      }
+    }
     
     .nav-link {
       position: relative;
@@ -218,6 +288,53 @@
     html[data-theme="dark"] .theme-icon-dark { display: none !important; }
     html[data-theme="light"] .theme-icon-dark { display: block !important; }
     html[data-theme="light"] .theme-icon-light { display: none !important; }
+
+    .project-outcome {
+      border-left: 3px solid #06b6d4;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      background: rgba(6, 182, 212, 0.08);
+    }
+
+    .project-showcase.is-filter-hidden {
+      display: none;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, #a78bfa, #06b6d4) !important;
+      color: #0a0a0f !important;
+      border-color: transparent !important;
+    }
+
+    .faq-details summary {
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-details summary::-webkit-details-marker { display: none; }
+    .faq-details[open] summary .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.25s ease; }
+
+    .floating-cta {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 40;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+    .floating-cta.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .profile-photo {
+      object-fit: cover;
+      border: 3px solid rgba(167, 139, 250, 0.35);
+    }
   </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -262,13 +379,13 @@
      <div class="mono text-lg font-medium" style="color: #a78bfa;">
       &lt;dev /&gt;
      </div>
-     <div class="hidden md:flex gap-6 items-center"><a href="#inicio" class="nav-link text-sm theme-text-primary" data-i18n="nav_home">Inicio</a> <a href="#proyectos" class="nav-link text-sm theme-text-primary" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="nav-link text-sm theme-text-primary" data-i18n="nav_about">Sobre Mí</a> <a href="#contacto" class="nav-link text-sm theme-text-primary" data-i18n="nav_contact">Contacto</a> <button id="theme-toggle" type="button" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:scale-105 theme-nav-border border theme-text-primary" title="Cambiar tema" aria-label="Cambiar tema"><svg class="theme-icon-dark w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="theme-icon-light w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button> <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-xs font-medium mono transition-all hover:scale-105" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
+     <div class="hidden md:flex gap-4 items-center"><a href="#inicio" class="nav-link text-sm theme-text-primary" data-i18n="nav_home">Inicio</a> <a href="#servicios" class="nav-link text-sm theme-text-primary" data-i18n="nav_services">Servicios</a> <a href="#proyectos" class="nav-link text-sm theme-text-primary" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="nav-link text-sm theme-text-primary" data-i18n="nav_about">Sobre Mí</a> <a href="#proceso" class="nav-link text-sm theme-text-primary" data-i18n="nav_process">Proceso</a> <a href="#faq" class="nav-link text-sm theme-text-primary" data-i18n="nav_faq">FAQ</a> <a href="#contacto" class="nav-link text-sm theme-text-primary" data-i18n="nav_contact">Contacto</a> <button id="theme-toggle" type="button" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:scale-105 theme-nav-border border theme-text-primary" title="Cambiar tema" aria-label="Cambiar tema"><svg class="theme-icon-dark w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="theme-icon-light w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button> <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-xs font-medium mono transition-all hover:scale-105" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
      </div><button id="mobile-menu-btn" class="md:hidden p-2 theme-text-primary">
       <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" />
       </svg></button>
     </div><!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-     <div class="flex flex-col gap-4"><a href="#inicio" class="text-sm theme-text-primary" data-i18n="nav_home">Inicio</a> <a href="#proyectos" class="text-sm theme-text-primary" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="text-sm theme-text-primary" data-i18n="nav_about">Sobre Mí</a> <a href="#contacto" class="text-sm theme-text-primary" data-i18n="nav_contact">Contacto</a> <button id="theme-toggle-mobile" type="button" class="w-9 h-9 rounded-lg flex items-center justify-center border theme-nav-border theme-text-primary" aria-label="Cambiar tema"><svg class="theme-icon-dark w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="theme-icon-light w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button> <button id="lang-toggle-mobile" class="px-3 py-2 rounded-lg text-xs font-medium mono transition-all text-left" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
+     <div class="flex flex-col gap-4"><a href="#inicio" class="text-sm theme-text-primary" data-i18n="nav_home">Inicio</a> <a href="#servicios" class="text-sm theme-text-primary" data-i18n="nav_services">Servicios</a> <a href="#proyectos" class="text-sm theme-text-primary" data-i18n="nav_projects">Proyectos</a> <a href="#sobre-mi" class="text-sm theme-text-primary" data-i18n="nav_about">Sobre Mí</a> <a href="#proceso" class="text-sm theme-text-primary" data-i18n="nav_process">Proceso</a> <a href="#faq" class="text-sm theme-text-primary" data-i18n="nav_faq">FAQ</a> <a href="#contacto" class="text-sm theme-text-primary" data-i18n="nav_contact">Contacto</a> <button id="theme-toggle-mobile" type="button" class="w-9 h-9 rounded-lg flex items-center justify-center border theme-nav-border theme-text-primary" aria-label="Cambiar tema"><svg class="theme-icon-dark w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="theme-icon-light w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button> <button id="lang-toggle-mobile" class="px-3 py-2 rounded-lg text-xs font-medium mono transition-all text-left" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3);">ES / EN</button>
      </div>
     </div>
    </nav><!-- Hero Section -->
@@ -278,82 +395,259 @@
       ¡Hola! Mi nombre es
      </div>
      <h1 id="hero-name" class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 gradient-text">Carlos Arce</h1>
-     <h2 id="hero-title" class="text-xl md:text-2xl lg:text-3xl font-light mb-6 theme-text-secondary">Full Stack Developer</h2>
-     <p id="hero-description" class="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed theme-text-muted" data-i18n="hero_description_text">Construyo experiencias digitales excepcionales que combinan diseño elegante con código limpio y eficiente.</p>
-     <div class="flex flex-col sm:flex-row gap-4 justify-center"><a href="#proyectos" class="px-8 py-3 rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #0a0a0f;" data-i18n="btn_view_projects"> Ver Proyectos </a> <a href="#contacto" class="px-8 py-3 rounded-full font-medium border transition-all hover:scale-105" style="border-color: #a78bfa; color: #a78bfa;" data-i18n="btn_contact"> Contactar </a>
+     <h2 id="hero-title" class="text-xl md:text-2xl lg:text-3xl font-light mb-3 theme-text-primary" data-i18n="hero_title">Desarrollo web y sistemas a medida para negocios</h2>
+     <p id="hero-description" class="text-base md:text-lg max-w-2xl mx-auto mb-4 leading-relaxed theme-text-secondary" data-i18n="hero_description_text">Tiendas online, gestión de citas y plataformas OMS — desde la idea hasta producción.</p>
+     <p class="text-sm mono mb-10 theme-text-muted" data-i18n="hero_tagline">Full Stack Developer · más de 20 años de experiencia</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center"><a href="#contacto" class="px-8 py-3 rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #0a0a0f;" data-i18n="btn_contact_project">Cuéntame tu proyecto</a> <a href="#proyectos" class="px-8 py-3 rounded-full font-medium border transition-all hover:scale-105 theme-card-border" style="border-color: #a78bfa; color: #a78bfa;" data-i18n="btn_view_projects">Ver demos</a>
      </div>
      <div class="mt-16 scroll-indicator theme-text-muted">
       <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
       </svg>
      </div>
     </div>
+   </section><!-- Services Section -->
+   <section id="servicios" class="py-20 px-6 relative">
+    <div class="max-w-6xl mx-auto">
+     <div class="text-center mb-12 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="services_subtitle">// qué puedo hacer por ti</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 theme-text-primary" data-i18n="services_title">Soluciones para tu negocio</h2>
+      <p class="text-base max-w-2xl mx-auto mt-4 theme-text-secondary" data-i18n="services_desc">No contratas solo código: obtienes sistemas listos para operar, con demos reales que puedes probar hoy.</p>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6">
+      <a href="#proyecto-tiendaonline" class="card-glow block rounded-2xl p-6 border theme-card-bg theme-card-border transition-transform hover:-translate-y-1">
+       <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center" style="background: rgba(244, 114, 182, 0.15);"><svg class="w-6 h-6" fill="none" stroke="#f472b6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div>
+       <h3 class="text-lg font-semibold mb-2 theme-text-primary" data-i18n="service1_title">Tiendas online / Ecommerce</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="service1_desc">Catálogo, carrito y checkout para vender por internet y validar tu modelo de negocio.</p>
+      </a>
+      <a href="#proyecto-cime" class="card-glow block rounded-2xl p-6 border theme-card-bg theme-card-border transition-transform hover:-translate-y-1">
+       <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center" style="background: rgba(6, 182, 212, 0.15);"><svg class="w-6 h-6" fill="none" stroke="#06b6d4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+       <h3 class="text-lg font-semibold mb-2 theme-text-primary" data-i18n="service2_title">Citas y agenda</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="service2_desc">Reservas online para clínicas, salones y cualquier negocio basado en citas.</p>
+      </a>
+      <a href="#proyecto-armymngr" class="card-glow block rounded-2xl p-6 border theme-card-bg theme-card-border transition-transform hover:-translate-y-1">
+       <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center" style="background: rgba(167, 139, 250, 0.15);"><svg class="w-6 h-6" fill="none" stroke="#a78bfa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+       <h3 class="text-lg font-semibold mb-2 theme-text-primary" data-i18n="service3_title">Gestión operativa / OMS</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="service3_desc">Clientes, inventario, servicios y operación diaria en un solo panel.</p>
+      </a>
+      <div class="card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
+       <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center" style="background: rgba(52, 211, 153, 0.15);"><svg class="w-6 h-6" fill="none" stroke="#34d399" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+       <h3 class="text-lg font-semibold mb-2 theme-text-primary" data-i18n="service4_title">APIs, integraciones y mantenimiento</h3>
+       <p class="text-sm mb-4 theme-text-secondary" data-i18n="service4_desc">Conecto tus sistemas, automatizo procesos y mantengo lo que ya tienes en producción.</p>
+       <a href="#contacto" class="text-sm font-medium" style="color: #06b6d4;" data-i18n="service4_cta">Consultar →</a>
+      </div>
+     </div>
+    </div>
    </section><!-- Projects Section -->
    <section id="proyectos" class="py-20 px-6 relative">
     <div class="max-w-6xl mx-auto">
-     <div class="text-center mb-16 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="projects_subtitle">// proyectos destacados</span>
+     <div class="text-center mb-8 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="projects_subtitle">// proyectos destacados</span>
       <h2 class="text-3xl md:text-4xl font-bold mt-2 theme-text-primary" data-i18n="projects_title">Mis Trabajos</h2>
      </div>
-     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Project 1 -->
-      <div class="project-card card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
-       <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
-        <svg class="w-16 h-16 floating" fill="none" stroke="#a78bfa" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+     <div class="flex flex-wrap justify-center gap-2 mb-10 slide-up" id="project-filters" role="tablist">
+      <button type="button" class="filter-btn active px-4 py-2 rounded-full text-xs mono border theme-card-border theme-text-primary transition-all" data-filter="all" data-i18n="filter_all">Todos</button>
+      <button type="button" class="filter-btn px-4 py-2 rounded-full text-xs mono border theme-card-border theme-text-secondary transition-all" data-filter="belleza" data-i18n="filter_beauty">Belleza</button>
+      <button type="button" class="filter-btn px-4 py-2 rounded-full text-xs mono border theme-card-border theme-text-secondary transition-all" data-filter="salud" data-i18n="filter_health">Salud</button>
+      <button type="button" class="filter-btn px-4 py-2 rounded-full text-xs mono border theme-card-border theme-text-secondary transition-all" data-filter="retail" data-i18n="filter_retail">Retail</button>
+      <button type="button" class="filter-btn px-4 py-2 rounded-full text-xs mono border theme-card-border theme-text-secondary transition-all" data-filter="gestion" data-i18n="filter_ops">Gestión</button>
+     </div>
+     <div class="space-y-10" id="projects-list"><!-- Project 1: OMS Salón / armymngr -->
+      <article id="proyecto-armymngr" data-categories="belleza gestion" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
+       <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="lg:order-1">
+         <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(167, 139, 250, 0.12);" data-i18n="project1_sector">Belleza · Gestión</span>
+          <span class="mono text-xs px-2 py-0.5 rounded-full" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;" data-i18n="badge_live_demo">Demo en vivo</span>
+         </div>
+         <h3 class="text-2xl font-semibold mb-3 theme-text-primary" data-i18n="project1_title">OMS Salón de Belleza</h3>
+         <p class="project-outcome text-sm theme-text-primary" data-i18n="project1_outcome">Centraliza citas, clientes e inventario en un solo panel — menos errores y más control del salón.</p>
+         <p class="text-sm mb-3 leading-relaxed theme-text-secondary" data-i18n="project1_desc">Sistema completo de gestión para salones de belleza con administración de citas, clientes, servicios e inventario.</p>
+         <p class="text-sm mb-4 leading-relaxed theme-text-muted" data-i18n="project1_detail">Panel web para coordinar el día a día del salón: agenda visual, base de clientes, catálogo de servicios y control de stock desde un único acceso.</p>
+         <ul class="project-features text-sm space-y-2 mb-5 theme-text-secondary">
+          <li data-i18n="project1_feat1">Calendario de citas y asignación de profesionales</li>
+          <li data-i18n="project1_feat2">Historial de clientes, servicios y consumibles</li>
+          <li data-i18n="project1_feat3">Inventario y seguimiento de productos</li>
+          <li data-i18n="project1_feat4">Vistas de administración para dueños y recepción</li>
+         </ul>
+         <div class="flex flex-wrap gap-2 mb-5"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">PHP</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">Laravel</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">MySQL</span>
+         </div>
+         <a href="https://armymanager.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80" style="color: #06b6d4;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          <span data-i18n="btn_view_demo">Ver demo en vivo</span>
+         </a>
+        </div>
+        <div class="lg:order-2">
+         <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-scroll" role="region" aria-label="Capturas OMS Salón de Belleza">
+          <img src="assets/armymngr/armymngr1.png" alt="OMS Salón de Belleza — captura 1" loading="lazy" width="400" height="260">
+          <img src="assets/armymngr/armymngr2.png" alt="OMS Salón de Belleza — captura 2" loading="lazy" width="400" height="260">
+          <img src="assets/armymngr/armymngr3.png" alt="OMS Salón de Belleza — captura 3" loading="lazy" width="400" height="260">
+          <img src="assets/armymngr/armymngr4.png" alt="OMS Salón de Belleza — captura 4" loading="lazy" width="400" height="260">
+          <img src="assets/armymngr/armymngr5.png" alt="OMS Salón de Belleza — captura 5" loading="lazy" width="400" height="260">
+          <img src="assets/armymngr/armymngr6.png" alt="OMS Salón de Belleza — captura 6" loading="lazy" width="400" height="260">
+          <img src="assets/armymngr/armymngr7.png" alt="OMS Salón de Belleza — captura 7" loading="lazy" width="400" height="260">
+         </div>
+        </div>
        </div>
-       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="project1_title">OMS Salón de Belleza</h3>
-       <p class="text-sm mb-4 leading-relaxed theme-text-secondary" data-i18n="project1_desc">Sistema completo de gestión para salones de belleza con administración de citas, clientes, servicios e inventario.</p>
-       <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">PHP</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">Laravel</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">MySQL</span>
+      </article><!-- Project 2: OMS Cime -->
+      <article id="proyecto-cime" data-categories="salud" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
+       <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="lg:order-2">
+         <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(6, 182, 212, 0.12);" data-i18n="project2_sector">Salud · Citas médicas</span>
+          <span class="mono text-xs px-2 py-0.5 rounded-full" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;" data-i18n="badge_live_demo">Demo en vivo</span>
+         </div>
+         <h3 class="text-2xl font-semibold mb-3 theme-text-primary" data-i18n="project2_title">OMS Cime</h3>
+         <p class="project-outcome text-sm theme-text-primary" data-i18n="project2_outcome">Organiza la agenda médica y reduce tiempos muertos en consultorio con una interfaz clara para todo el equipo.</p>
+         <p class="text-sm mb-3 leading-relaxed theme-text-secondary" data-i18n="project2_desc">Administrador de citas médicas moderno con interfaz intuitiva para la gestión de pacientes, horarios y consultas.</p>
+         <p class="text-sm mb-4 leading-relaxed theme-text-muted" data-i18n="project2_detail">Aplicación pensada para clínicas y consultorios: flujos claros para agendar, consultar expedientes y organizar la agenda del personal sanitario.</p>
+         <ul class="project-features text-sm space-y-2 mb-5 theme-text-secondary">
+          <li data-i18n="project2_feat1">Agenda de consultas y disponibilidad por profesional</li>
+          <li data-i18n="project2_feat2">Fichas de pacientes y seguimiento de visitas</li>
+          <li data-i18n="project2_feat3">Gestión de horarios y tipos de cita</li>
+          <li data-i18n="project2_feat4">Interfaz responsive para recepción y médicos</li>
+         </ul>
+         <div class="flex flex-wrap gap-2 mb-5"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">Node.js</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">MongoDB</span>
+         </div>
+         <a href="https://cime.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80" style="color: #06b6d4;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          <span data-i18n="btn_view_demo">Ver demo en vivo</span>
+         </a>
+        </div>
+        <div class="lg:order-1">
+         <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-scroll" role="region" aria-label="Capturas OMS Cime">
+          <img src="assets/cime/cime1.png" alt="OMS Cime — captura 1" loading="lazy" width="400" height="260">
+          <img src="assets/cime/cime2.png" alt="OMS Cime — captura 2" loading="lazy" width="400" height="260">
+          <img src="assets/cime/cime3.png" alt="OMS Cime — captura 3" loading="lazy" width="400" height="260">
+          <img src="assets/cime/cime4.png" alt="OMS Cime — captura 4" loading="lazy" width="400" height="260">
+          <img src="assets/cime/cime5.png" alt="OMS Cime — captura 5" loading="lazy" width="400" height="260">
+         </div>
+        </div>
        </div>
-       <div class="flex gap-3"><a href="https://armymanager.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
-         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-         </svg><span data-i18n="btn_view_demo">Ver Demo</span> </a>
+      </article><!-- Project 3: Alquiler de Sillas -->
+      <article id="proyecto-alquilersillas" data-categories="gestion" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
+       <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="lg:order-1">
+         <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(251, 146, 60, 0.12);" data-i18n="project3_sector">Gestión · Reservas</span>
+          <span class="mono text-xs px-2 py-0.5 rounded-full" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;" data-i18n="badge_live_demo">Demo en vivo</span>
+         </div>
+         <h3 class="text-2xl font-semibold mb-3 theme-text-primary" data-i18n="project3_title">Alquiler de Sillas</h3>
+         <p class="project-outcome text-sm theme-text-primary" data-i18n="project3_outcome">Automatiza reservas, pagos y ocupación — ideal para espacios compartidos que viven de la disponibilidad en tiempo real.</p>
+         <p class="text-sm mb-3 leading-relaxed theme-text-secondary" data-i18n="project3_desc">Plataforma de gestión para alquiler de sillas con control de disponibilidad, reservas, pagos y reportes detallados.</p>
+         <p class="text-sm mb-4 leading-relaxed theme-text-muted" data-i18n="project3_detail">Solución para espacios compartidos (coworking, salones, eventos): reserva de puestos, control de ocupación, cobros y reportes operativos en tiempo real.</p>
+         <ul class="project-features text-sm space-y-2 mb-5 theme-text-secondary">
+          <li data-i18n="project3_feat1">Calendario de reservas y estado de cada silla</li>
+          <li data-i18n="project3_feat2">Registro de pagos y contratos de alquiler</li>
+          <li data-i18n="project3_feat3">Reportes de uso e ingresos</li>
+          <li data-i18n="project3_feat4">Panel para administradores y usuarios finales</li>
+         </ul>
+         <div class="flex flex-wrap gap-2 mb-5"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">Express</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">PostgreSQL</span>
+         </div>
+         <a href="https://alquilersillasdemo.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80" style="color: #06b6d4;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          <span data-i18n="btn_view_demo">Ver demo en vivo</span>
+         </a>
+        </div>
+        <div class="lg:order-2">
+         <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-scroll" role="region" aria-label="Capturas Alquiler de Sillas">
+          <img src="assets/alquilersillas/sillas1.png" alt="Alquiler de Sillas — captura 1" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas2.png" alt="Alquiler de Sillas — captura 2" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas3.png" alt="Alquiler de Sillas — captura 3" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas4.png" alt="Alquiler de Sillas — captura 4" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas5.png" alt="Alquiler de Sillas — captura 5" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas6.png" alt="Alquiler de Sillas — captura 6" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas7.png" alt="Alquiler de Sillas — captura 7" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas8.png" alt="Alquiler de Sillas — captura 8" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas9.png" alt="Alquiler de Sillas — captura 9" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas10.png" alt="Alquiler de Sillas — captura 10" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas11.png" alt="Alquiler de Sillas — captura 11" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas12.png" alt="Alquiler de Sillas — captura 12" loading="lazy" width="400" height="260">
+          <img src="assets/alquilersillas/sillas13.png" alt="Alquiler de Sillas — captura 13" loading="lazy" width="400" height="260">
+         </div>
+        </div>
        </div>
-      </div><!-- Project 2 -->
-      <div class="project-card card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
-       <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #134e4a, #0f766e);">
-        <svg class="w-16 h-16 floating" style="animation-delay: -1s;" fill="none" stroke="#34d399" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-        </svg>
+      </article><!-- Project 4: Tienda Online -->
+      <article id="proyecto-tiendaonline" data-categories="retail" class="project-showcase card-glow slide-up rounded-2xl p-6 md:p-8 border theme-card-bg theme-card-border">
+       <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="lg:order-2">
+         <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="project-sector mono px-3 py-1 rounded-full theme-text-secondary" style="background-color: rgba(244, 114, 182, 0.12);" data-i18n="project4_sector">Ecommerce · Retail</span>
+          <span class="mono text-xs px-2 py-0.5 rounded-full" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;" data-i18n="badge_live_demo">Demo en vivo</span>
+         </div>
+         <h3 class="text-2xl font-semibold mb-3 theme-text-primary" data-i18n="project4_title">Tienda Online</h3>
+         <p class="project-outcome text-sm theme-text-primary" data-i18n="project4_outcome">Catálogo y checkout listos para validar ventas online antes de invertir en producción a gran escala.</p>
+         <p class="text-sm mb-3 leading-relaxed theme-text-secondary" data-i18n="project4_desc">Demo de tienda online de venta de camisetas con catálogo, carrito y checkout de ecommerce.</p>
+         <p class="text-sm mb-4 leading-relaxed theme-text-muted" data-i18n="project4_detail">TeeHaus: tienda demo de camisetas con catálogo en Supabase, diseño moderno y flujo de compra completo para validar un negocio online antes de invertir en producción.</p>
+         <ul class="project-features text-sm space-y-2 mb-5 theme-text-secondary">
+          <li data-i18n="project4_feat1">Catálogo por categorías y productos destacados</li>
+          <li data-i18n="project4_feat2">Carrito de compra y checkout simulado</li>
+          <li data-i18n="project4_feat3">Backend con Supabase y contenido dinámico</li>
+          <li data-i18n="project4_feat4">Experiencia mobile-first lista para escalar</li>
+         </ul>
+         <div class="flex flex-wrap gap-2 mb-5"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(244, 114, 182, 0.15); color: #f472b6;">Supabase</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">E-commerce</span>
+         </div>
+         <a href="https://tiendaonlinedemo.apolinux.work.gd/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80" style="color: #06b6d4;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          <span data-i18n="btn_view_demo">Ver demo en vivo</span>
+         </a>
+        </div>
+        <div class="lg:order-1">
+         <p class="text-xs mono mb-3 theme-text-muted" data-i18n="gallery_scroll_hint">Desliza para ver más capturas →</p>
+         <div class="project-gallery-scroll" role="region" aria-label="Capturas Tienda Online">
+          <img src="assets/tiendaonline/cami1.png" alt="Tienda Online — captura 1" loading="lazy" width="400" height="260">
+          <img src="assets/tiendaonline/cami2.png" alt="Tienda Online — captura 2" loading="lazy" width="400" height="260">
+          <img src="assets/tiendaonline/cami3.png" alt="Tienda Online — captura 3" loading="lazy" width="400" height="260">
+          <img src="assets/tiendaonline/cami4.png" alt="Tienda Online — captura 4" loading="lazy" width="400" height="260">
+          <img src="assets/tiendaonline/cami5.png" alt="Tienda Online — captura 5" loading="lazy" width="400" height="260">
+         </div>
+        </div>
        </div>
-       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="project2_title">OMS Cime</h3>
-       <p class="text-sm mb-4 leading-relaxed theme-text-secondary" data-i18n="project2_desc">Administrador de citas médicas moderno con interfaz intuitiva para la gestión de pacientes, horarios y consultas.</p>
-       <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">Node.js</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">MongoDB</span>
-       </div>
-       <div class="flex gap-3"><a href="https://cime.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
-         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-         </svg><span data-i18n="btn_view_demo">Ver Demo</span> </a>
-       </div>
-      </div><!-- Project 3 -->
-      <div class="project-card card-glow rounded-2xl p-6 border theme-card-bg theme-card-border">
-       <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #7c2d12, #9a3412);">
-        <svg class="w-16 h-16 floating" style="animation-delay: -2s;" fill="none" stroke="#fb923c" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-semibold mb-2 theme-text-primary" data-i18n="project3_title">Alquiler de Sillas</h3>
-       <p class="text-sm mb-4 leading-relaxed theme-text-secondary" data-i18n="project3_desc">Plataforma de gestión para alquiler de sillas con control de disponibilidad, reservas, pagos y reportes detallados.</p>
-       <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">Express</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(52, 211, 153, 0.15); color: #34d399;">PostgreSQL</span>
-       </div>
-       <div class="flex gap-3"><a href="https://alquilersillasdemo.apolinux.work.gd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
-         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-         </svg><span data-i18n="btn_view_demo">Ver Demo</span> </a>
-       </div>
-      </div><!-- Project 4 -->
-      <div class="project-card card-glow rounded-2xl p-6 border" style="background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(15, 15, 25, 0.9)); border-color: rgba(244, 114, 182, 0.2);">
-       <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center" style="background: linear-gradient(135deg, #831843, #9f1239);">
-        <svg class="w-16 h-16 floating" style="animation-delay: -3s;" fill="none" stroke="#f472b6" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-semibold mb-2" style="color: #e2e8f0;" data-i18n="project4_title">Tienda Online</h3>
-       <p class="text-sm mb-4 leading-relaxed" style="color: #94a3b8;" data-i18n="project4_desc">Demo de tienda online de venta de camisetas con catálogo, carrito y checkout de ecommerce.</p>
-       <div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">React</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(244, 114, 182, 0.15); color: #f472b6;">Supabase</span> <span class="tech-tag px-3 py-1 rounded-full text-xs mono" style="background-color: rgba(167, 139, 250, 0.15); color: #a78bfa;">E-commerce</span>
-       </div>
-       <div class="flex gap-3"><a href="https://tiendaonlinedemo.apolinux.work.gd/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-sm transition-colors hover:opacity-80" style="color: #06b6d4;">
-         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-         </svg><span data-i18n="btn_view_demo">Ver Demo</span> </a> 
-       </div>
-      </div>
+      </article>
+     </div>
+    </div>
+   </section><!-- Testimonials Section -->
+   <section id="testimonios" class="py-20 px-6 relative">
+    <div class="max-w-6xl mx-auto">
+     <div class="text-center mb-12 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="testimonials_subtitle">// confianza</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 theme-text-primary" data-i18n="testimonials_title">Lo que resuelven mis proyectos</h2>
+     </div>
+     <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <blockquote class="rounded-2xl p-6 border theme-card-bg theme-card-border slide-up">
+       <p class="text-sm leading-relaxed mb-4 theme-text-secondary" data-i18n="testimonial1_text">«Pasamos de agendas en papel a ver citas, clientes y stock en un solo lugar. La recepción trabaja mucho más rápido.»</p>
+       <footer class="text-xs theme-text-muted"><strong class="theme-text-primary" data-i18n="testimonial1_role">Dueña de salón de belleza</strong> · <span data-i18n="testimonial1_sector">Sector belleza</span></footer>
+      </blockquote>
+      <blockquote class="rounded-2xl p-6 border theme-card-bg theme-card-border slide-up">
+       <p class="text-sm leading-relaxed mb-4 theme-text-secondary" data-i18n="testimonial2_text">«El equipo médico entiende la agenda al primer vistazo. Menos llamadas para confirmar y reprogramar citas.»</p>
+       <footer class="text-xs theme-text-muted"><strong class="theme-text-primary" data-i18n="testimonial2_role">Coordinación de clínica</strong> · <span data-i18n="testimonial2_sector">Sector salud</span></footer>
+      </blockquote>
+      <blockquote class="rounded-2xl p-6 border theme-card-bg theme-card-border slide-up">
+       <p class="text-sm leading-relaxed mb-4 theme-text-secondary" data-i18n="testimonial3_text">«Controlamos qué sillas están libres, reservadas o pagadas sin hojas de cálculo. Los reportes nos ayudan a decidir.»</p>
+       <footer class="text-xs theme-text-muted"><strong class="theme-text-primary" data-i18n="testimonial3_role">Administrador de espacio compartido</strong> · <span data-i18n="testimonial3_sector">Sector gestión</span></footer>
+      </blockquote>
+     </div>
+     <div class="text-center mb-6"><span class="mono text-sm theme-text-muted" data-i18n="cases_subtitle">// mini casos</span></div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="#proyecto-armymngr" class="rounded-xl p-4 border theme-card-bg theme-card-border text-left hover:opacity-90 transition-opacity">
+       <div class="text-xs mono mb-2" style="color: #a78bfa;" data-i18n="case1_tag">Belleza</div>
+       <div class="text-sm font-medium theme-text-primary mb-1" data-i18n="case1_problem">Problema: citas dispersas</div>
+       <div class="text-xs theme-text-muted" data-i18n="case1_solution">Solución: OMS integral · Laravel</div>
+      </a>
+      <a href="#proyecto-cime" class="rounded-xl p-4 border theme-card-bg theme-card-border text-left hover:opacity-90 transition-opacity">
+       <div class="text-xs mono mb-2" style="color: #06b6d4;" data-i18n="case2_tag">Salud</div>
+       <div class="text-sm font-medium theme-text-primary mb-1" data-i18n="case2_problem">Problema: agenda médica caótica</div>
+       <div class="text-xs theme-text-muted" data-i18n="case2_solution">Solución: citas y pacientes · React</div>
+      </a>
+      <a href="#proyecto-alquilersillas" class="rounded-xl p-4 border theme-card-bg theme-card-border text-left hover:opacity-90 transition-opacity">
+       <div class="text-xs mono mb-2" style="color: #fb923c;" data-i18n="case3_tag">Gestión</div>
+       <div class="text-sm font-medium theme-text-primary mb-1" data-i18n="case3_problem">Problema: reservas manuales</div>
+       <div class="text-xs theme-text-muted" data-i18n="case3_solution">Solución: alquiler y pagos · Express</div>
+      </a>
+      <a href="#proyecto-tiendaonline" class="rounded-xl p-4 border theme-card-bg theme-card-border text-left hover:opacity-90 transition-opacity">
+       <div class="text-xs mono mb-2" style="color: #f472b6;" data-i18n="case4_tag">Retail</div>
+       <div class="text-sm font-medium theme-text-primary mb-1" data-i18n="case4_problem">Problema: vender sin tienda web</div>
+       <div class="text-xs theme-text-muted" data-i18n="case4_solution">Solución: ecommerce demo · Supabase</div>
+      </a>
      </div>
     </div>
    </section><!-- About Section -->
@@ -362,8 +656,9 @@
      <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div class="slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="about_subtitle">// sobre mí</span>
        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 theme-text-primary" data-i18n="about_title">Conoce Mi Historia</h2>
-       <p id="about-text" class="text-base leading-relaxed mb-6 theme-text-secondary" data-i18n="about_text1">Con más de 20 años de experiencia en desarrollo de software, me especializo en crear aplicaciones web modernas y escalables. Mi pasión por la tecnología me impulsa a estar siempre aprendiendo y explorando nuevas herramientas y metodologías.</p>
-       <p class="text-base leading-relaxed mb-8 theme-text-secondary" data-i18n="about_text2">Creo firmemente en el código limpio, las buenas prácticas y la colaboración efectiva. Cada proyecto es una oportunidad para superar límites y crear algo extraordinario.</p>
+       <p class="text-base leading-relaxed mb-4 theme-text-secondary italic" data-i18n="about_personal">Llevo más de 20 años construyendo software que resuelve problemas reales de negocio — desde startups hasta operaciones consolidadas.</p>
+       <p id="about-text" class="text-base leading-relaxed mb-6 theme-text-secondary" data-i18n="about_text1">Me especializo en aplicaciones web modernas y escalables: tiendas online, sistemas de citas y plataformas de gestión. Trabajo cerca del cliente para que el resultado sea útil desde el primer día, no solo bonito en pantalla.</p>
+       <p class="text-base leading-relaxed mb-8 theme-text-secondary" data-i18n="about_text2">Creo en código mantenible, comunicación clara y entregas iterativas. Cada proyecto es una oportunidad de automatizar trabajo manual y hacer crecer tu negocio con tecnología bien aplicada.</p>
        <div class="flex flex-wrap gap-3"><span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">JavaScript</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">TypeScript</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">PHP</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">Python</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">React</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">Laravel</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">Node.js</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">MySQL</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">PostgreSQL</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(167, 139, 250, 0.1); color: #a78bfa;">Nginx</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(6, 182, 212, 0.1); color: #06b6d4;">Linux</span> <span class="px-4 py-2 rounded-lg text-sm" style="background-color: rgba(52, 211, 153, 0.1); color: #34d399;">XML</span>
        </div>
       </div>
@@ -371,10 +666,7 @@
        <div class="aspect-square max-w-md mx-auto rounded-2xl p-8 border relative overflow-hidden theme-card-bg theme-card-border">
         <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at 30% 70%, #a78bfa 0%, transparent 50%), radial-gradient(circle at 70% 30%, #06b6d4 0%, transparent 50%);"></div>
         <div class="relative h-full flex flex-col justify-center items-center text-center">
-         <div class="w-32 h-32 rounded-full mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #a78bfa, #06b6d4);">
-          <svg class="w-16 h-16" fill="none" stroke="#0a0a0f" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>
-         </div>
+         <img src="assets/img/Carlos-Arce.png" alt="Carlos Arce" width="128" height="128" class="profile-photo w-32 h-32 rounded-full mb-6 object-cover" loading="lazy">
          <div class="mono text-4xl font-bold gradient-text mb-2">
           20+
          </div>
@@ -404,11 +696,67 @@
       </div>
      </div>
     </div>
+   </section><!-- Process Section -->
+   <section id="proceso" class="py-20 px-6 relative">
+    <div class="max-w-6xl mx-auto">
+     <div class="text-center mb-12 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="process_subtitle">// cómo trabajo</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 theme-text-primary" data-i18n="process_title">Proceso claro, sin sorpresas</h2>
+      <p class="text-sm mt-4 theme-text-muted" data-i18n="process_timeline">MVP orientativo: 4–8 semanas según alcance</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="rounded-2xl p-6 border theme-card-bg theme-card-border text-center slide-up">
+       <div class="mono text-2xl font-bold gradient-text mb-2">01</div>
+       <h3 class="font-semibold mb-2 theme-text-primary" data-i18n="process1_title">Brief</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="process1_desc">Entiendo tu negocio, usuarios y objetivos. Definimos qué debe hacer el sistema.</p>
+      </div>
+      <div class="rounded-2xl p-6 border theme-card-bg theme-card-border text-center slide-up">
+       <div class="mono text-2xl font-bold gradient-text mb-2">02</div>
+       <h3 class="font-semibold mb-2 theme-text-primary" data-i18n="process2_title">Propuesta</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="process2_desc">Alcance, plazos y stack acordados. Sin letra pequeña: sabes qué recibes.</p>
+      </div>
+      <div class="rounded-2xl p-6 border theme-card-bg theme-card-border text-center slide-up">
+       <div class="mono text-2xl font-bold gradient-text mb-2">03</div>
+       <h3 class="font-semibold mb-2 theme-text-primary" data-i18n="process3_title">Desarrollo</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="process3_desc">Entregas iterativas con demos intermedias para validar antes del cierre.</p>
+      </div>
+      <div class="rounded-2xl p-6 border theme-card-bg theme-card-border text-center slide-up">
+       <div class="mono text-2xl font-bold gradient-text mb-2">04</div>
+       <h3 class="font-semibold mb-2 theme-text-primary" data-i18n="process4_title">Entrega</h3>
+       <p class="text-sm theme-text-secondary" data-i18n="process4_desc">Puesta en producción, documentación y soporte post-lanzamiento acordado.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- FAQ Section -->
+   <section id="faq" class="py-20 px-6 relative">
+    <div class="max-w-3xl mx-auto">
+     <div class="text-center mb-12 slide-up"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="faq_subtitle">// preguntas frecuentes</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 theme-text-primary" data-i18n="faq_title">FAQ</h2>
+     </div>
+     <div class="space-y-3 slide-up">
+      <details class="faq-details rounded-xl border theme-card-bg theme-card-border p-5">
+       <summary class="flex justify-between items-center gap-4 font-medium theme-text-primary"><span data-i18n="faq1_q">¿Trabajas por proyecto o por horas?</span><svg class="faq-chevron w-5 h-5 flex-shrink-0 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+       <p class="mt-4 text-sm theme-text-secondary" data-i18n="faq1_a">Ambos. Para alcance definido prefiero proyecto cerrado con hitos; para soporte o tareas puntuales, bolsa de horas.</p>
+      </details>
+      <details class="faq-details rounded-xl border theme-card-bg theme-card-border p-5">
+       <summary class="flex justify-between items-center gap-4 font-medium theme-text-primary"><span data-i18n="faq2_q">¿Ofreces mantenimiento?</span><svg class="faq-chevron w-5 h-5 flex-shrink-0 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+       <p class="mt-4 text-sm theme-text-secondary" data-i18n="faq2_a">Sí. Actualizaciones, correcciones y mejoras evolutivas tras el lanzamiento, con SLA acordado según criticidad.</p>
+      </details>
+      <details class="faq-details rounded-xl border theme-card-bg theme-card-border p-5">
+       <summary class="flex justify-between items-center gap-4 font-medium theme-text-primary"><span data-i18n="faq3_q">¿Quién es dueño del código?</span><svg class="faq-chevron w-5 h-5 flex-shrink-0 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+       <p class="mt-4 text-sm theme-text-secondary" data-i18n="faq3_a">Tú, una vez abonado el proyecto. Entrego repositorio y documentación para que tu equipo pueda continuar si lo desea.</p>
+      </details>
+      <details class="faq-details rounded-xl border theme-card-bg theme-card-border p-5">
+       <summary class="flex justify-between items-center gap-4 font-medium theme-text-primary"><span data-i18n="faq4_q">¿Qué necesito para empezar?</span><svg class="faq-chevron w-5 h-5 flex-shrink-0 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+       <p class="mt-4 text-sm theme-text-secondary" data-i18n="faq4_a">Una descripción del problema, ejemplos de lo que te gusta (como las demos de este sitio) y disponibilidad para 1–2 reuniones de alineación.</p>
+      </details>
+     </div>
+    </div>
    </section><!-- Contact Section -->
    <section id="contacto" class="py-20 px-6 relative">
     <div class="max-w-4xl mx-auto text-center"><span class="mono text-sm" style="color: #06b6d4;" data-i18n="contact_subtitle">// contacto</span>
      <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 theme-text-primary" data-i18n="contact_title">¿Trabajamos Juntos?</h2>
-     <p class="text-base mb-4 max-w-2xl mx-auto theme-text-secondary" data-i18n="contact_desc">Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o oportunidades para ser parte de algo increíble.</p>
+     <p class="text-base mb-2 max-w-2xl mx-auto theme-text-secondary" data-i18n="contact_desc">Cuéntame tu idea y te respondo con los siguientes pasos — sin compromiso.</p>
+     <p class="text-sm mb-6 theme-text-muted" data-i18n="contact_response">Respuesta habitual en 24–48 h.</p>
      <p class="text-sm mb-6 theme-text-muted" data-i18n="contact_telegram_hint">También puedes escribirme por Telegram o usar el formulario.</p>
      <p class="flex justify-center mb-8">
       <a href="https://t.me/ZR4S0LR4K" target="_blank" rel="noopener noreferrer" class="inline-block" title="Contactar por Telegram">
@@ -467,40 +815,142 @@
      </div>
     </div>
    </footer>
+   <a href="#contacto" id="floating-cta" class="floating-cta md:hidden px-5 py-3 rounded-full font-medium text-sm shadow-lg" style="background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #0a0a0f;" data-i18n="floating_cta">Contactar</a>
   </div>
   <script>
     // Translations
     const translations = {
       es: {
         nav_home: 'Inicio',
+        nav_services: 'Servicios',
         nav_projects: 'Proyectos',
         nav_about: 'Sobre Mí',
+        nav_process: 'Proceso',
+        nav_faq: 'FAQ',
         nav_contact: 'Contacto',
         hero_greeting: '¡Hola! Mi nombre es',
-        hero_description_text: 'Construyo experiencias digitales excepcionales que combinan diseño elegante con código limpio y eficiente.',
-        btn_view_projects: 'Ver Proyectos',
+        hero_title: 'Desarrollo web y sistemas a medida para negocios',
+        hero_description_text: 'Tiendas online, gestión de citas y plataformas OMS — desde la idea hasta producción.',
+        hero_tagline: 'Full Stack Developer · más de 20 años de experiencia',
+        btn_contact_project: 'Cuéntame tu proyecto',
+        btn_view_projects: 'Ver demos',
         btn_contact: 'Contactar',
+        services_subtitle: '// qué puedo hacer por ti',
+        services_title: 'Soluciones para tu negocio',
+        services_desc: 'No contratas solo código: obtienes sistemas listos para operar, con demos reales que puedes probar hoy.',
+        service1_title: 'Tiendas online / Ecommerce',
+        service1_desc: 'Catálogo, carrito y checkout para vender por internet y validar tu modelo de negocio.',
+        service2_title: 'Citas y agenda',
+        service2_desc: 'Reservas online para clínicas, salones y cualquier negocio basado en citas.',
+        service3_title: 'Gestión operativa / OMS',
+        service3_desc: 'Clientes, inventario, servicios y operación diaria en un solo panel.',
+        service4_title: 'APIs, integraciones y mantenimiento',
+        service4_desc: 'Conecto tus sistemas, automatizo procesos y mantengo lo que ya tienes en producción.',
+        service4_cta: 'Consultar →',
         projects_subtitle: '// proyectos destacados',
         projects_title: 'Mis Trabajos',
+        filter_all: 'Todos',
+        filter_beauty: 'Belleza',
+        filter_health: 'Salud',
+        filter_retail: 'Retail',
+        filter_ops: 'Gestión',
         project1_title: 'OMS Salón de Belleza',
+        project1_sector: 'Belleza · Gestión',
+        project1_outcome: 'Centraliza citas, clientes e inventario en un solo panel — menos errores y más control del salón.',
         project1_desc: 'Sistema completo de gestión para salones de belleza con administración de citas, clientes, servicios e inventario.',
+        project1_detail: 'Panel web para coordinar el día a día del salón: agenda visual, base de clientes, catálogo de servicios y control de stock desde un único acceso.',
+        project1_feat1: 'Calendario de citas y asignación de profesionales',
+        project1_feat2: 'Historial de clientes, servicios y consumibles',
+        project1_feat3: 'Inventario y seguimiento de productos',
+        project1_feat4: 'Vistas de administración para dueños y recepción',
         project2_title: 'OMS Cime',
+        project2_sector: 'Salud · Citas médicas',
+        project2_outcome: 'Organiza la agenda médica y reduce tiempos muertos en consultorio con una interfaz clara para todo el equipo.',
         project2_desc: 'Administrador de citas médicas moderno con interfaz intuitiva para la gestión de pacientes, horarios y consultas.',
+        project2_detail: 'Aplicación pensada para clínicas y consultorios: flujos claros para agendar, consultar expedientes y organizar la agenda del personal sanitario.',
+        project2_feat1: 'Agenda de consultas y disponibilidad por profesional',
+        project2_feat2: 'Fichas de pacientes y seguimiento de visitas',
+        project2_feat3: 'Gestión de horarios y tipos de cita',
+        project2_feat4: 'Interfaz responsive para recepción y médicos',
         project3_title: 'Alquiler de Sillas',
+        project3_sector: 'Gestión · Reservas',
+        project3_outcome: 'Automatiza reservas, pagos y ocupación — ideal para espacios compartidos que viven de la disponibilidad en tiempo real.',
         project3_desc: 'Plataforma de gestión para alquiler de sillas con control de disponibilidad, reservas, pagos y reportes detallados.',
+        project3_detail: 'Solución para espacios compartidos (coworking, salones, eventos): reserva de puestos, control de ocupación, cobros y reportes operativos en tiempo real.',
+        project3_feat1: 'Calendario de reservas y estado de cada silla',
+        project3_feat2: 'Registro de pagos y contratos de alquiler',
+        project3_feat3: 'Reportes de uso e ingresos',
+        project3_feat4: 'Panel para administradores y usuarios finales',
         project4_title: 'Tienda Online',
+        project4_sector: 'Ecommerce · Retail',
+        project4_outcome: 'Catálogo y checkout listos para validar ventas online antes de invertir en producción a gran escala.',
         project4_desc: 'Demo de tienda online de venta de camisetas con catálogo, carrito y checkout de ecommerce.',
-        btn_view_demo: 'Ver Demo',
+        project4_detail: 'TeeHaus: tienda demo de camisetas con catálogo en Supabase, diseño moderno y flujo de compra completo para validar un negocio online antes de invertir en producción.',
+        project4_feat1: 'Catálogo por categorías y productos destacados',
+        project4_feat2: 'Carrito de compra y checkout simulado',
+        project4_feat3: 'Backend con Supabase y contenido dinámico',
+        project4_feat4: 'Experiencia mobile-first lista para escalar',
+        badge_live_demo: 'Demo en vivo',
+        gallery_scroll_hint: 'Desliza para ver más capturas →',
+        btn_view_demo: 'Ver demo en vivo',
+        testimonials_subtitle: '// confianza',
+        testimonials_title: 'Lo que resuelven mis proyectos',
+        testimonial1_text: '«Pasamos de agendas en papel a ver citas, clientes y stock en un solo lugar. La recepción trabaja mucho más rápido.»',
+        testimonial1_role: 'Dueña de salón de belleza',
+        testimonial1_sector: 'Sector belleza',
+        testimonial2_text: '«El equipo médico entiende la agenda al primer vistazo. Menos llamadas para confirmar y reprogramar citas.»',
+        testimonial2_role: 'Coordinación de clínica',
+        testimonial2_sector: 'Sector salud',
+        testimonial3_text: '«Controlamos qué sillas están libres, reservadas o pagadas sin hojas de cálculo. Los reportes nos ayudan a decidir.»',
+        testimonial3_role: 'Administrador de espacio compartido',
+        testimonial3_sector: 'Sector gestión',
+        cases_subtitle: '// mini casos',
+        case1_tag: 'Belleza',
+        case1_problem: 'Problema: citas dispersas',
+        case1_solution: 'Solución: OMS integral · Laravel',
+        case2_tag: 'Salud',
+        case2_problem: 'Problema: agenda médica caótica',
+        case2_solution: 'Solución: citas y pacientes · React',
+        case3_tag: 'Gestión',
+        case3_problem: 'Problema: reservas manuales',
+        case3_solution: 'Solución: alquiler y pagos · Express',
+        case4_tag: 'Retail',
+        case4_problem: 'Problema: vender sin tienda web',
+        case4_solution: 'Solución: ecommerce demo · Supabase',
         about_subtitle: '// sobre mí',
         about_title: 'Conoce Mi Historia',
-        about_text1: 'Con más de 20 años de experiencia en desarrollo de software, me especializo en crear aplicaciones web modernas y escalables. Mi pasión por la tecnología me impulsa a estar siempre aprendiendo y explorando nuevas herramientas y metodologías.',
-        about_text2: 'Creo firmemente en el código limpio, las buenas prácticas y la colaboración efectiva. Cada proyecto es una oportunidad para superar límites y crear algo extraordinario.',
+        about_personal: 'Llevo más de 20 años construyendo software que resuelve problemas reales de negocio — desde startups hasta operaciones consolidadas.',
+        about_text1: 'Me especializo en aplicaciones web modernas y escalables: tiendas online, sistemas de citas y plataformas de gestión. Trabajo cerca del cliente para que el resultado sea útil desde el primer día, no solo bonito en pantalla.',
+        about_text2: 'Creo en código mantenible, comunicación clara y entregas iterativas. Cada proyecto es una oportunidad de automatizar trabajo manual y hacer crecer tu negocio con tecnología bien aplicada.',
+        process_subtitle: '// cómo trabajo',
+        process_title: 'Proceso claro, sin sorpresas',
+        process_timeline: 'MVP orientativo: 4–8 semanas según alcance',
+        process1_title: 'Brief',
+        process1_desc: 'Entiendo tu negocio, usuarios y objetivos. Definimos qué debe hacer el sistema.',
+        process2_title: 'Propuesta',
+        process2_desc: 'Alcance, plazos y stack acordados. Sin letra pequeña: sabes qué recibes.',
+        process3_title: 'Desarrollo',
+        process3_desc: 'Entregas iterativas con demos intermedias para validar antes del cierre.',
+        process4_title: 'Entrega',
+        process4_desc: 'Puesta en producción, documentación y soporte post-lanzamiento acordado.',
+        faq_subtitle: '// preguntas frecuentes',
+        faq_title: 'FAQ',
+        faq1_q: '¿Trabajas por proyecto o por horas?',
+        faq1_a: 'Ambos. Para alcance definido prefiero proyecto cerrado con hitos; para soporte o tareas puntuales, bolsa de horas.',
+        faq2_q: '¿Ofreces mantenimiento?',
+        faq2_a: 'Sí. Actualizaciones, correcciones y mejoras evolutivas tras el lanzamiento, con SLA acordado según criticidad.',
+        faq3_q: '¿Quién es dueño del código?',
+        faq3_a: 'Tú, una vez abonado el proyecto. Entrego repositorio y documentación para que tu equipo pueda continuar si lo desea.',
+        faq4_q: '¿Qué necesito para empezar?',
+        faq4_a: 'Una descripción del problema, ejemplos de lo que te gusta (como las demos de este sitio) y disponibilidad para 1–2 reuniones de alineación.',
+        floating_cta: 'Contactar',
         about_years: 'Años de experiencia',
         about_projects: 'Proyectos',
         about_clients: 'Clientes',
         contact_subtitle: '// contacto',
         contact_title: '¿Trabajamos Juntos?',
-        contact_desc: 'Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o oportunidades para ser parte de algo increíble.',
+        contact_desc: 'Cuéntame tu idea y te respondo con los siguientes pasos — sin compromiso.',
+        contact_response: 'Respuesta habitual en 24–48 h.',
         contact_telegram_hint: 'También puedes escribirme por Telegram o usar el formulario.',
         form_name: 'Nombre',
         form_name_placeholder: 'Tu nombre',
@@ -522,34 +972,135 @@
       },
       en: {
         nav_home: 'Home',
+        nav_services: 'Services',
         nav_projects: 'Projects',
         nav_about: 'About',
+        nav_process: 'Process',
+        nav_faq: 'FAQ',
         nav_contact: 'Contact',
         hero_greeting: 'Hello! My name is',
-        hero_description_text: 'I build exceptional digital experiences that combine elegant design with clean and efficient code.',
-        btn_view_projects: 'View Projects',
+        hero_title: 'Custom web development and business systems',
+        hero_description_text: 'Online stores, appointment management, and OMS platforms — from idea to production.',
+        hero_tagline: 'Full Stack Developer · 20+ years of experience',
+        btn_contact_project: 'Tell me about your project',
+        btn_view_projects: 'View demos',
         btn_contact: 'Contact Me',
+        services_subtitle: '// what I can do for you',
+        services_title: 'Solutions for your business',
+        services_desc: 'You are not hiring code only: you get systems ready to run, with real demos you can try today.',
+        service1_title: 'Online stores / E-commerce',
+        service1_desc: 'Catalog, cart, and checkout to sell online and validate your business model.',
+        service2_title: 'Appointments & scheduling',
+        service2_desc: 'Online booking for clinics, salons, and any appointment-based business.',
+        service3_title: 'Operations / OMS',
+        service3_desc: 'Clients, inventory, services, and daily operations in one dashboard.',
+        service4_title: 'APIs, integrations & maintenance',
+        service4_desc: 'I connect your systems, automate processes, and maintain what you already run in production.',
+        service4_cta: 'Ask me →',
         projects_subtitle: '// featured projects',
         projects_title: 'My Work',
+        filter_all: 'All',
+        filter_beauty: 'Beauty',
+        filter_health: 'Healthcare',
+        filter_retail: 'Retail',
+        filter_ops: 'Operations',
         project1_title: 'OMS Beauty Salon',
+        project1_sector: 'Beauty · Management',
+        project1_outcome: 'Centralize appointments, clients, and inventory in one dashboard — fewer errors and full salon control.',
         project1_desc: 'Complete management system for beauty salons with appointment, client, service, and inventory administration.',
+        project1_detail: 'Web dashboard to run daily salon operations: visual scheduling, client database, service catalog, and stock control from a single login.',
+        project1_feat1: 'Appointment calendar and staff assignment',
+        project1_feat2: 'Client history, services, and consumables',
+        project1_feat3: 'Inventory and product tracking',
+        project1_feat4: 'Admin views for owners and front desk',
         project2_title: 'OMS Cime',
+        project2_sector: 'Healthcare · Medical appointments',
+        project2_outcome: 'Organize the medical schedule and reduce downtime with a clear interface for the whole team.',
         project2_desc: 'Modern medical appointment manager with intuitive interface for managing patients, schedules, and consultations.',
+        project2_detail: 'Built for clinics and practices: clear flows to book visits, review records, and coordinate healthcare staff schedules.',
+        project2_feat1: 'Consultation schedule and provider availability',
+        project2_feat2: 'Patient records and visit tracking',
+        project2_feat3: 'Schedule and appointment type management',
+        project2_feat4: 'Responsive UI for reception and clinicians',
         project3_title: 'Chair Rental',
+        project3_sector: 'Operations · Bookings',
+        project3_outcome: 'Automate bookings, payments, and occupancy — ideal for shared spaces that depend on real-time availability.',
         project3_desc: 'Management platform for chair rentals with availability control, reservations, payments, and detailed reports.',
+        project3_detail: 'For shared spaces (coworking, salons, events): seat booking, occupancy control, payments, and operational reporting in real time.',
+        project3_feat1: 'Booking calendar and per-seat status',
+        project3_feat2: 'Payment and rental contract tracking',
+        project3_feat3: 'Usage and revenue reports',
+        project3_feat4: 'Dashboards for admins and end users',
         project4_title: 'Online Store',
+        project4_sector: 'E-commerce · Retail',
+        project4_outcome: 'Catalog and checkout ready to validate online sales before scaling to full production.',
         project4_desc: 'Demo online store for selling t-shirts with catalog, shopping cart, and e-commerce checkout.',
-        btn_view_demo: 'View Demo',
+        project4_detail: 'TeeHaus: demo t-shirt shop with Supabase catalog, modern design, and full purchase flow to validate an online business before production investment.',
+        project4_feat1: 'Category catalog and featured products',
+        project4_feat2: 'Shopping cart and simulated checkout',
+        project4_feat3: 'Supabase backend with dynamic content',
+        project4_feat4: 'Mobile-first experience ready to scale',
+        badge_live_demo: 'Live demo',
+        gallery_scroll_hint: 'Scroll to see more screenshots →',
+        btn_view_demo: 'View live demo',
+        testimonials_subtitle: '// trust',
+        testimonials_title: 'What my projects deliver',
+        testimonial1_text: '"We went from paper schedules to seeing appointments, clients, and stock in one place. Reception works much faster."',
+        testimonial1_role: 'Beauty salon owner',
+        testimonial1_sector: 'Beauty sector',
+        testimonial2_text: '"The medical team understands the schedule at a glance. Fewer calls to confirm and reschedule appointments."',
+        testimonial2_role: 'Clinic coordinator',
+        testimonial2_sector: 'Healthcare sector',
+        testimonial3_text: '"We track which chairs are free, booked, or paid without spreadsheets. Reports help us decide."',
+        testimonial3_role: 'Shared space administrator',
+        testimonial3_sector: 'Operations sector',
+        cases_subtitle: '// mini cases',
+        case1_tag: 'Beauty',
+        case1_problem: 'Problem: scattered appointments',
+        case1_solution: 'Solution: full OMS · Laravel',
+        case2_tag: 'Healthcare',
+        case2_problem: 'Problem: chaotic medical schedule',
+        case2_solution: 'Solution: appointments & patients · React',
+        case3_tag: 'Operations',
+        case3_problem: 'Problem: manual bookings',
+        case3_solution: 'Solution: rental & payments · Express',
+        case4_tag: 'Retail',
+        case4_problem: 'Problem: selling without a web store',
+        case4_solution: 'Solution: e-commerce demo · Supabase',
         about_subtitle: '// about me',
         about_title: 'Know My Story',
-        about_text1: 'With over 20 years of experience in software development, I specialize in creating modern and scalable web applications. My passion for technology drives me to always be learning and exploring new tools and methodologies.',
-        about_text2: 'I firmly believe in clean code, best practices, and effective collaboration. Every project is an opportunity to push boundaries and create something extraordinary.',
+        about_personal: 'I have spent 20+ years building software that solves real business problems — from startups to established operations.',
+        about_text1: 'I specialize in modern, scalable web apps: online stores, appointment systems, and management platforms. I work closely with clients so the result is useful from day one, not just pretty on screen.',
+        about_text2: 'I believe in maintainable code, clear communication, and iterative delivery. Every project is a chance to automate manual work and grow your business with well-applied technology.',
+        process_subtitle: '// how I work',
+        process_title: 'A clear process, no surprises',
+        process_timeline: 'Typical MVP: 4–8 weeks depending on scope',
+        process1_title: 'Brief',
+        process1_desc: 'I learn your business, users, and goals. We define what the system must do.',
+        process2_title: 'Proposal',
+        process2_desc: 'Agreed scope, timeline, and stack. No fine print: you know what you get.',
+        process3_title: 'Development',
+        process3_desc: 'Iterative delivery with intermediate demos to validate before launch.',
+        process4_title: 'Handoff',
+        process4_desc: 'Production deployment, documentation, and agreed post-launch support.',
+        faq_subtitle: '// frequently asked questions',
+        faq_title: 'FAQ',
+        faq1_q: 'Do you work per project or hourly?',
+        faq1_a: 'Both. For defined scope I prefer fixed projects with milestones; for support or small tasks, hourly blocks.',
+        faq2_q: 'Do you offer maintenance?',
+        faq2_a: 'Yes. Updates, fixes, and evolutionary improvements after launch, with an SLA based on criticality.',
+        faq3_q: 'Who owns the code?',
+        faq3_a: 'You do, once the project is paid. I deliver the repository and docs so your team can continue if needed.',
+        faq4_q: 'What do I need to get started?',
+        faq4_a: 'A problem description, examples you like (such as the demos on this site), and availability for 1–2 alignment meetings.',
+        floating_cta: 'Contact',
         about_years: 'Years of experience',
         about_projects: 'Projects',
         about_clients: 'Clients',
         contact_subtitle: '// contact',
         contact_title: 'Let\'s Work Together?',
-        contact_desc: 'I\'m always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.',
+        contact_desc: 'Tell me your idea and I will reply with next steps — no obligation.',
+        contact_response: 'Typical response within 24–48 hours.',
         contact_telegram_hint: 'You can also message me on Telegram or use the form below.',
         form_name: 'Name',
         form_name_placeholder: 'Your name',
@@ -627,7 +1178,7 @@
     const defaultConfig = {
       developer_name: 'Carlos Arce',
       developer_title: 'Full Stack Developer',
-      hero_description: 'Construyo experiencias digitales excepcionales que combinan diseño elegante con código limpio y eficiente.',
+      hero_description: 'Tiendas online, gestión de citas y plataformas OMS — desde la idea hasta producción.',
       about_text: 'Con más de 20 años de experiencia en desarrollo de software, me especializo en crear aplicaciones web modernas y escalables. Mi pasión por la tecnología me impulsa a estar siempre aprendiendo y explorando nuevas herramientas y metodologías.',
       contact_email: 'apolinux@gmail.com',
       background_color: '#0a0a0f',
@@ -644,8 +1195,6 @@
         onConfigChange: async (config) => {
           // Update hero section
           document.getElementById('hero-name').textContent = config.developer_name || defaultConfig.developer_name;
-          document.getElementById('hero-title').textContent = config.developer_title || defaultConfig.developer_title;
-          document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
           
           // Update about section
           document.getElementById('about-text').textContent = config.about_text || defaultConfig.about_text;
@@ -768,6 +1317,33 @@
       setFormSubmitting(false);
     }
 
+    // Project category filters
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectArticles = document.querySelectorAll('.project-showcase[data-categories]');
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        filterBtns.forEach((b) => {
+          b.classList.toggle('active', b === btn);
+          b.classList.toggle('theme-text-primary', b === btn);
+          b.classList.toggle('theme-text-secondary', b !== btn);
+        });
+        projectArticles.forEach((article) => {
+          const cats = (article.dataset.categories || '').split(' ');
+          const show = filter === 'all' || cats.includes(filter);
+          article.classList.toggle('is-filter-hidden', !show);
+        });
+      });
+    });
+
+    // Floating contact CTA (mobile)
+    const floatingCta = document.getElementById('floating-cta');
+    if (floatingCta) {
+      const onScroll = () => floatingCta.classList.toggle('is-visible', window.scrollY > 400);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
     if (contactForm) {
       contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -799,7 +1375,7 @@
     if (formResetBtn) {
       formResetBtn.addEventListener('click', resetContactForm);
     }
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
